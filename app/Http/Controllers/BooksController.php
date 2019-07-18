@@ -34,4 +34,21 @@ class BooksController extends Controller
             'results'=> $books
         ]);
     }
+
+    public function single(Response $response, $id)
+    {
+        $client = new Client();
+        $base = 'https://capitadiscovery.co.uk/cornwall';
+        $book = [];
+
+        $crawler = $client->request('GET', $base . '/items/' . $id);
+
+        $book['id'] = $id;
+        $book['title'] = $crawler->filter('.item')->filter('.title')->text();
+        $book['ISBN'] = $crawler->filter('.item')->filter('span[itemprop="isbn"]')->text();
+
+        return response()->json([
+            'results'=> $book
+        ]);
+    }
 }
