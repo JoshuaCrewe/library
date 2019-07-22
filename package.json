@@ -18,6 +18,10 @@
         "laravel-mix-svelte": "wewowweb/laravel-mix-svelte"
     },
     "devDependencies": {
+        "cross-env": "^5.2.0",
+        "resolve-url-loader": "3.1.0",
+        "sass": "^1.22.7",
+        "sass-loader": "7.*",
         "svelte": "^3.6.7",
         "svelte-loader": "^2.13.5",
         "vue-template-compiler": "^2.6.10"

@@ -13,7 +13,7 @@ class BooksController extends Controller
         $base = 'https://capitadiscovery.co.uk/cornwall';
         $books = [];
 
-        $crawler = $client->request('GET', $base . '/items?query=' . $terms);
+        $crawler = $client->request('GET', $base . '/items?query=' . $terms . '&max=12');
 
         $crawler->filter('.item')->each(function($node) use (&$books, $base) {
             $item = [];
