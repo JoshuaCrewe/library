@@ -5,13 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Vue and Lumen</title>
-        <link rel="stylesheet" href="dist/app.css" />
+        <link rel="stylesheet" href="dist/css/app.css" />
     </head>
     <body>
-        <h1>Library</h1>
 
-        <div id="app"></div>
-
-        <script src="dist/app.js"></script>
+        <script src="dist/js/app.js"></script>
     </body>
 </html>
