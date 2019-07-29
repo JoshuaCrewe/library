@@ -9,6 +9,6 @@
     </head>
     <body>
 
-        <script src="dist/js/app.js"></script>
+        <script type="text/javascript" src="dist/js/app.js"></script>
     </body>
 </html>
