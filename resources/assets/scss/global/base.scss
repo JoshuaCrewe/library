@@ -1,0 +1,28 @@
+// Base Styles
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: $body-font;
+
+    font-weight: 300;
+    font-style: normal;
+
+    background-color: $bg;
+    color: $black;
+
+    // Source: https://medium.com/@MateMarschalko/improving-font-rendering-with-css-3383fc358cbc
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+}
+
+// Links
+
+a {
+    color: inherit;
+    text-decoration: none;
+}

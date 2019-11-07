@@ -23,6 +23,7 @@
         font-size: 1.5rem;
         width: 100%;
         min-width: 50%;
+        font-family: 'ITF-Medium';
     }
 
     button {
