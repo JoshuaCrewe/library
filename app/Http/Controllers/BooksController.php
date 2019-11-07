@@ -23,7 +23,7 @@ class BooksController extends Controller
             $item['id'] = $data[1];
             $item['image'] = $base . '/items/' . $data[1] . '/image-medium';
             $item['title'] = trim($node->filter('.title')->text());
-            $item['author'] = trim($node->filter('.author span[itemprop="name"]')->text());
+            $item['author'] = trim($node->filter('span[itemprop="name"]')->text());
             $item['summary'] = trim($node->filter('.summarydetail[itemprop="description"]')->text());
             $item['format'] = rtrim(trim($node->filter('.format')->text()), '.');
 
