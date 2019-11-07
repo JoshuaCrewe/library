@@ -104,7 +104,11 @@
 
     const handleSubmit = (form) => {
         const { value } = form.srcElement.elements.search;
-        searchTerm = escape(value.replace(" ","+"));
+        if (value == '') {
+            searchTerm = "__";
+        } else {
+            searchTerm = escape(value.replace(" ","+"));
+        }
         getBooks();
     }
 </script>
