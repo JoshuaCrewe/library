@@ -7,6 +7,13 @@ use Goutte\Client;
 
 class BooksController extends Controller
 {
+    public function empty(Response $response, $terms)
+    {
+        print_r('this one');
+        return response()->json([
+            'results'=> []
+        ]);
+    }
     public function search(Response $response, $terms)
     {
         $client = new Client();

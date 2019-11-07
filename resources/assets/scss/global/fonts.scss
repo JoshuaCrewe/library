@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "ITF-Black";
+    src: url("./../../fonts/inter-black.woff2") format("woff2"),
+        url("./../../fonts/inter-black.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: "ITF-Medium";
+    src: url("./../../fonts/inter-medium.woff2") format("woff2"),
+        url("./../../fonts/inter-medium.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: fallback;
+}
