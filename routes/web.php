@@ -11,6 +11,9 @@
 |
 */
 
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('/login/{barcode}', 'BooksController@login');
+});
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/search/{terms}', 'BooksController@search');
