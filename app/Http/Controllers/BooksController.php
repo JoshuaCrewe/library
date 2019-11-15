@@ -7,11 +7,19 @@ use Goutte\Client;
 
 class BooksController extends Controller
 {
-    public function empty(Response $response, $terms)
+    public function login(Response $response, $barcode)
     {
-        print_r('this one');
+        $client = new Client();
+        $result = [];
+        $crawler = $client->request('GET', 'https://capitadiscovery.co.uk/cornwall/login');
+        $form = $crawler->selectButton('Login')->form();
+        $crawler = $client->submit($form, array('barcode' => $barcode, 'institutionId' => ''));
+        $crawler->filter('.accountSummary')->each(function ($node) {
+            print trim($node->text());
+        });
+
         return response()->json([
-            'results'=> []
+            'results'=> $result
         ]);
     }
     public function search(Response $response, $terms)
