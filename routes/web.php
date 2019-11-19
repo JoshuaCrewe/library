@@ -21,7 +21,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/book/{id}', 'BooksController@single');
+    $router->get('/item/{id}', 'BooksController@single');
 });
 
 $router->get('/{route:.*}/', function ()  {

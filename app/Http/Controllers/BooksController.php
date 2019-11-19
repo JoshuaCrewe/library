@@ -59,8 +59,16 @@ class BooksController extends Controller
         $crawler = $client->request('GET', $base . '/items/' . $id);
 
         $book['id'] = $id;
+
+        $data = explode( '/', $crawler->filter('img[itemprop="image"]')->attr('src'));
+        $book['image'] = $base . '/items/' . $data[1] . '/image-medium';
+
         $book['title'] = $crawler->filter('.item')->filter('.title')->text();
+        $book['author'] = trim($crawler->filter('.description > .author > span[itemprop="creator"] > span[itemprop="name"]')->text());
+        $book['summary'] = trim($crawler->filter('.summarydetail > p[itemprop="description"]')->text());
         $book['ISBN'] = $crawler->filter('.item')->filter('span[itemprop="isbn"]')->text();
+        $book['genres'] = $crawler->filter('.item')->filter('span[itemprop="genre"]')->extract(['_text']);
+        $book['status'] = trim($crawler->filter('.item')->filter('#availability > .options')->html());
 
         return response()->json([
             'results'=> $book

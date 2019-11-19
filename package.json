@@ -16,7 +16,8 @@
     },
     "dependencies": {
         "laravel-mix": "^4.1.2",
-        "laravel-mix-svelte": "wewowweb/laravel-mix-svelte"
+        "laravel-mix-svelte": "wewowweb/laravel-mix-svelte",
+        "svelte-spa-router": "^2.0.0"
     },
     "devDependencies": {
         "cross-env": "^5.2.0",
