@@ -56,7 +56,7 @@ padding-left: 1rem;
 
 <h1>Library</h1>
 
-<Form on:books={handleResults}/>
+<Form on:books={handleResults} params={params}/>
 
 {#if data}
     <div class="books" transition:fade>
@@ -72,6 +72,9 @@ padding-left: 1rem;
                     <p class="book-format">
                         {book.format}
                     </p>
+                    <p>
+                        {book.summary}
+                    </p>
                 </div>
             </a>
         {/each}
@@ -84,6 +87,7 @@ padding-left: 1rem;
     import {link} from 'svelte-spa-router'
 
     let data;
+    export let params = {}
 
     const handleResults = (response) => {
         data = response.detail.books.results;
