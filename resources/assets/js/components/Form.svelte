@@ -63,11 +63,12 @@
 </style>
 
 <form on:submit|preventDefault={handleSubmit}>
-    <input type="search" id="search">
+    <input type="search" id="search" bind:value="{searchValue}">
     <button>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </button>
 </form>
+
 
 {#if loading }
     <p class="loading" transition:fade>
@@ -76,26 +77,38 @@
 {/if }
 
 <script>
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
     import { fade } from 'svelte/transition';
+    import { push } from 'svelte-spa-router'
 
-    let searchTerm = '';
-    let loading = false;
     export let data = {};
+    export let params = {}
+
+    let currentSearch = params.term || '';
+    let loading = false;
+
+    let searchValue = decodeURI(currentSearch.replace("+"," "));
+
+    onMount(async () => {
+        if (currentSearch !== '') {
+            getBooks();
+        }
+    })
 
     const dispatch = createEventDispatcher();
 
 	function sendData(loading) {
+        push(`/search/${currentSearch}`)
+
 		dispatch('books', {
 			books: data
 		});
 	}
 
-
     async function getBooks() {
         loading = true;
 
-        let url = '/api/search/' + searchTerm;
+        let url = '/api/search/' + currentSearch;
         const response = await fetch(url);
         const json = await response.json();
         console.log(json);
@@ -107,9 +120,9 @@
     const handleSubmit = (form) => {
         const { value } = form.srcElement.elements.search;
         if (value == '') {
-            searchTerm = "__";
+            currentSearch = "__";
         } else {
-            searchTerm = escape(value.replace(" ","+"));
+            currentSearch = escape(value.replace(" ","+"));
         }
         getBooks();
     }
