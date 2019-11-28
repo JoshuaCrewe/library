@@ -3,22 +3,31 @@
         width: 66%;
         margin: 0 auto;
         box-sizing: border-box;
-        border-radius: 4px;
         display: flex;
         position: relative;
         background-color: #fff;
+
+        border-radius: 4px;
         border: 1px solid rgba(0,0,0,0.15);
         box-shadow: 0 2px 3px rgba(0,0,0,0.06);
-        padding: .5rem .75rem;
+
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
+
+        transition: box-shadow .3s ease;
+    }
+
+    form:focus-within {
+        box-shadow: 0 2px 30px rgba(0,0,0,0.06);
+        transition: box-shadow .3s ease;
     }
 
     input {
+        display: block;
         height: 100%;
         margin: 0;
-        padding: 0;
+        padding: .5rem 48px .5rem .75rem;
         border: 0;
         font-size: 1.5rem;
         width: 100%;
@@ -26,18 +35,26 @@
         font-family: 'ITF-Medium';
     }
 
+
     button {
         background-color: transparent;
         border: none;
         padding: 0;
         margin: 0;
-        /* height: 24px; */
-        /* width: 24px; */
         cursor: pointer;
+
+        position: absolute;
+        right: 0;
+    }
+
+    button:focus {
+        background-color: #eee;
     }
 
     :global(.feather) {
-        width: 24px;
+        width: 48px;
+        padding: 12px;
+        height: 48px;
     }
 
     @media(max-width: 600px) {

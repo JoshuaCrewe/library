@@ -29,7 +29,7 @@
 
     .book-details {
         flex: 1;
-padding-left: 1rem;
+        padding-left: 1rem;
     }
 
     .book-image img {
