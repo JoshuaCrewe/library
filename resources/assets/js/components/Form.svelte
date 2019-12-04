@@ -147,6 +147,7 @@
         } else {
             data = {};
             sendData();
+            push('/');
         }
     }
 </script>

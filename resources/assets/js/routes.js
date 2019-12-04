@@ -5,7 +5,7 @@ import { wrap } from "svelte-spa-router";
 
 const routes = {
     "/search/:term": Search,
-    "/": wrap(Search, { foo: "bar" }),
+    "/": Search,
     "/item/:id": Book,
     "/dashboard": Dashboard
 };
