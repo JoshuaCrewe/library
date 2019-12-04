@@ -1,4 +1,11 @@
-@import "./global/config";
-@import "./global/base";
-@import "./global/fonts";
-@import "./global/type";
+@import "~reset-css/reset.css";
+@import "mixins";
+
+@import "typography/mechanics";
+@import "typography/base";
+@import "typography/scale";
+
+@import "global/config";
+@import "global/base";
+@import "global/fonts";
+@import "global/type";
