@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="dist/css/app.css" />
     </head>
     <body>
+        <div hidden>
+            <?= file_get_contents('partials/sprite.php') ?>
+        </div>
+
+
 
         <script type="text/javascript" src="dist/js/app.js"></script>
     </body>
