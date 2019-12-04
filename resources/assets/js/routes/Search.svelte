@@ -29,7 +29,7 @@
 
     .book-details {
         flex: 1;
-padding-left: 1rem;
+        padding-left: 1rem;
     }
 
     .book-image img {
@@ -50,8 +50,6 @@ padding-left: 1rem;
         display: inline-block;
         padding: .25rem .5rem;
     }
-
-
 </style>
 
 <h1>Library</h1>
@@ -59,7 +57,7 @@ padding-left: 1rem;
 <Form on:books={handleResults} params={params}/>
 
 {#if data}
-    <div class="books" transition:fade>
+    <div class="books">
         {#each data as book}
             <a href="/item/{book.id}" class="book" use:link>
                 <div class="book-image">
