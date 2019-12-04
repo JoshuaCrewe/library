@@ -69,8 +69,8 @@
 
     .loading svg {
         animation: spin infinite 2s linear;
-        width: 35px;
-        height: 35px;
+        width: 70px;
+        height: 70px;
     }
 
     @keyframes spin {

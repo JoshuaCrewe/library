@@ -3,7 +3,7 @@
         text-align: center;
     }
     :global(.feather) {
-        width: 24px;
+        width: 48px;
     }
 
     .loading {
@@ -12,8 +12,8 @@
 
     .loading svg {
         animation: spin infinite 2s linear;
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
     }
 
     @keyframes spin {
