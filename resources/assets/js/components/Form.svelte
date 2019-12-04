@@ -140,12 +140,13 @@
 
     const handleSubmit = (form) => {
         const { value } = form.srcElement.elements.search;
-        if (value == '') {
-            currentSearch = "__";
-        } else {
+        if (value !== '') {
             currentSearch = value.replace(" ","+");
             console.log(currentSearch);
+            getBooks();
+        } else {
+            data = {};
+            sendData();
         }
-        getBooks();
     }
 </script>

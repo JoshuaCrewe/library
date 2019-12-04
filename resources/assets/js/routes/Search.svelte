@@ -1,8 +1,4 @@
 <style>
-    h1 {
-        text-align: center;
-    }
-
     h2 {
         margin-bottom: 0;
     }
@@ -51,8 +47,6 @@
         padding: .25rem .5rem;
     }
 </style>
-
-<h1>Library</h1>
 
 <Form on:books={handleResults} params={params}/>
 
