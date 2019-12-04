@@ -139,7 +139,8 @@
         if (value == '') {
             currentSearch = "__";
         } else {
-            currentSearch = escape(value.replace(" ","+"));
+            currentSearch = value.replace(" ","+");
+            console.log(currentSearch);
         }
         getBooks();
     }
