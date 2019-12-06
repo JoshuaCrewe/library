@@ -9,15 +9,16 @@
 
     let loading = false;
 
-    items.update( items => {
-        items.currentSearch = params.term || '';
-        return items;
-    });
-    let searchValue = decodeURI($items.currentSearch.replace("+"," "));
+    let searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
 
     onMount(async () => {
-        if ($items.currentSearch !== '') {
-            getItems();
+        if (params.term) {
+            /* console.log('this has params'); */
+            items.update( items => {
+                items.currentSearch = params.term;
+                return items;
+            });
+            /* getItems(); */
         }
     })
 
@@ -42,7 +43,7 @@
         const { value } = form.srcElement.elements.search;
         if (value !== '') {
             items.update(items => {
-                items.currentSearch = value.replace(" ", "+");
+                items.currentSearch = value.replace(/ /g, "+");
                 return items;
 
             })
@@ -58,7 +59,7 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-    <input type="search" id="search" bind:value="{$items.currentSearch}">
+    <input type="search" id="search" bind:value={searchValue}>
     <button>
         <svg class="feather feather-search" width="25" height="24">
             <use xlink:href="#icon--search"></use>
