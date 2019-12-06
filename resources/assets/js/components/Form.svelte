@@ -18,7 +18,9 @@
                 items.currentSearch = params.term;
                 return items;
             });
-            /* getItems(); */
+            if ($items.results.length == 0) {
+                getItems();
+            }
         }
     })
 
