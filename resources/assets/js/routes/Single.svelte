@@ -1,7 +1,8 @@
 <script>
-    import { fade } from 'svelte/transition';
-    import {link} from 'svelte-spa-router'
+    import {link, push} from 'svelte-spa-router'
     import Form from './../components/Form.svelte';
+    import {items} from './../stores';
+    import {onMount} from 'svelte';
 
     export let params = {}
     export let data = {};
@@ -13,11 +14,21 @@
         let url = '/api/item/' + params.id;
         const response = await fetch(url);
         const json = await response.json();
-        console.log(json);
         data = json.results;
         loading = false;
     }
-    getItem()
+
+    onMount(() => {
+        getItem()
+    })
+
+    function returnToResults() {
+        if ($items.currentSearch !== '') {
+            push(`/search/${$items.currentSearch}`)
+        } else {
+            push('/');
+        }
+    }
 
 
 
@@ -76,6 +87,8 @@
 
     </div>
 {/if }
+
+<button on:click={returnToResults}> Return to results </button>
 
 
 <style>

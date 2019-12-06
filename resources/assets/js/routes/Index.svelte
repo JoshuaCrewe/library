@@ -1,22 +1,13 @@
 <script>
-    import { onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
     import {link} from 'svelte-spa-router'
 
     import Form from './../components/Form.svelte'
 
     import {items} from './../stores';
-    let results;
 
-    items.subscribe(value => {
-        console.log(value);
-        results = value.results;
-    });
+    let results = $items.results;
 
     export let params = {}
-
-    onMount(() => { });
-
 </script>
 
 <Form {params}/>
@@ -24,7 +15,7 @@
 {#if $items.results.length !== 0}
     <div class="items">
         {#each $items.results as item}
-            <a href="/item/{item.id}" class="item" use:link>
+            <a href="#/item/{item.id}" class="item">
                 <div class="item-image">
                     <img src="{item.image}" alt="{item.title}">
                 </div>
