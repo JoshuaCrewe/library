@@ -1,10 +1,12 @@
-import Book from "./routes/Book.svelte";
-import Search from "./routes/Search.svelte";
+import Single from "./routes/Single.svelte";
+import Index from "./routes/Index.svelte";
+import Dashboard from "./routes/Dashboard.svelte";
 
 const routes = {
-    "/search/:term": Search,
-    "/": Search,
-    "/item/:id": Book
+    "/search/:term": Index,
+    "/": Index,
+    "/item/:id": Single,
+    "/dashboard": Dashboard
 };
 
 export default routes;

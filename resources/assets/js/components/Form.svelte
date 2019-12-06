@@ -1,3 +1,80 @@
+<script>
+    import { onMount } from 'svelte';
+    import { fade } from 'svelte/transition';
+    import { push } from 'svelte-spa-router'
+    import items from './../stores';
+
+    export let data = {};
+    export let params = {}
+
+    let loading = false;
+
+    items.update( items => {
+        items.currentSearch = params.term || '';
+        return items;
+    });
+    let searchValue = decodeURI($items.currentSearch.replace("+"," "));
+
+    onMount(async () => {
+        if ($items.currentSearch !== '') {
+            getItems();
+        }
+    })
+
+    async function getItems() {
+        loading = true;
+
+        let url = '/api/search/' + $items.currentSearch;
+        const response = await fetch(url);
+        const json = await response.json();
+
+        items.update( items => {
+            items.results = json.results;
+            return items;
+        })
+
+
+        loading = false;
+        push(`/search/${$items.currentSearch}`)
+    }
+
+    const handleSubmit = (form) => {
+        const { value } = form.srcElement.elements.search;
+        if (value !== '') {
+            items.update(items => {
+                items.currentSearch = value.replace(" ", "+");
+                return items;
+
+            })
+            getItems();
+        } else {
+            items.update(items => {
+                items.results = [];
+                return items;
+            })
+            push('/');
+        }
+    }
+</script>
+
+<form on:submit|preventDefault={handleSubmit}>
+    <input type="search" id="search" bind:value="{$items.currentSearch}">
+    <button>
+        <svg class="feather feather-search" width="25" height="24">
+            <use xlink:href="#icon--search"></use>
+        </svg>
+    </button>
+</form>
+
+
+{#if loading }
+    <p class="loading">
+        <svg>
+            <use xlink:href="#icon--loading"></use>
+        </svg>
+    </p>
+{/if }
+
 <style>
     form {
         width: 66%;
@@ -78,75 +155,3 @@
         to {transform:rotate(360deg);}
     }
 </style>
-
-<form on:submit|preventDefault={handleSubmit}>
-    <input type="search" id="search" bind:value="{searchValue}">
-    <button>
-        <svg class="feather feather-search" width="25" height="24">
-            <use xlink:href="#icon--search"></use>
-        </svg>
-    </button>
-</form>
-
-
-{#if loading }
-    <p class="loading">
-        <svg>
-            <use xlink:href="#icon--loading"></use>
-        </svg>
-    </p>
-{/if }
-
-<script>
-    import { createEventDispatcher, onMount } from 'svelte';
-    import { fade } from 'svelte/transition';
-    import { push } from 'svelte-spa-router'
-
-    export let data = {};
-    export let params = {}
-
-    let currentSearch = params.term || '';
-    let loading = false;
-
-    let searchValue = decodeURI(currentSearch.replace("+"," "));
-
-    onMount(async () => {
-        if (currentSearch !== '') {
-            getBooks();
-        }
-    })
-
-    const dispatch = createEventDispatcher();
-
-	function sendData(loading) {
-        push(`/search/${currentSearch}`)
-
-		dispatch('books', {
-			books: data
-		});
-	}
-
-    async function getBooks() {
-        loading = true;
-
-        let url = '/api/search/' + currentSearch;
-        const response = await fetch(url);
-        const json = await response.json();
-        console.log(json);
-        data = json;
-        loading = false;
-        sendData();
-    }
-
-    const handleSubmit = (form) => {
-        const { value } = form.srcElement.elements.search;
-        if (value !== '') {
-            currentSearch = value.replace(" ","+");
-            console.log(currentSearch);
-            getBooks();
-        } else {
-            data = {};
-            sendData();
-        }
-    }
-</script>

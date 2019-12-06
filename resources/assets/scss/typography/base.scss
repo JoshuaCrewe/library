@@ -1,0 +1,105 @@
+// vertical rhythm
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+// ul,
+dl,
+figure,
+address,
+table,
+pre code,
+pre,
+img {
+    margin-bottom: $type-leading * 1rem;
+}
+
+// italic
+.italic {
+    font-style: italic;
+}
+// usage
+var,
+cite,
+em,
+i {
+    @extend .italic;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+// mark
+mark {
+    background-color: yellow;
+}
+
+// strike
+s,
+del {
+    text-decoration: line-through;
+}
+
+// underline
+ins,
+u {
+    text-decoration: underline;
+}
+
+// code
+code,
+samp,
+kbd {
+    display: inline-block;
+    font-family: monospace;
+    letter-spacing: 0;
+}
+
+pre code {
+    background-color: #eee;
+    display: block;
+    padding: $type-leading / 2 * 1rem;
+    overflow-x: scroll;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+.lowercase {
+    text-transform: lowercase;
+}
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
+
+// check your type
+.baseline {
+    background-image: linear-gradient(
+            to bottom,
+            #0ff 0,
+            rgba(255, 255, 255, 0) 1px
+        ),
+        linear-gradient(to bottom, rgba(red, 0.1) 0, rgba(255, 255, 255, 0) 1px);
+    background-repeat: repeat-y;
+    background-size: 100% $type-leading * 1rem, 100% ($type-leading / 4) * 1rem;
+}
+
+// lists
+ol {
+    list-style-type: decimal;
+}
+ul {
+    list-style-type: disc;
+}

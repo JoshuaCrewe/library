@@ -1,0 +1,28 @@
+$base-font-size: 16 !default;
+$type-body: $base-font-size * 1px !default;
+
+$target-line-height: 24 !default;
+
+// rhythm
+// best to have increments for more control adjusting
+$type-leading: $target-line-height / $base-font-size !default;
+$line-height: $type-leading * 1rem !default;
+$type-rhythm: $type-leading / 4 !default;
+
+/*  
+ * Set the vertical rhythm of the page on paddings, margins etc.
+ * @param Integer - An increment of the scale to use
+ * @return String - scale value in rems
+ */
+@function rhythm($num) {
+    @return $type-rhythm * $num * 1rem;
+}
+
+/*  
+ * Set the font size using a scale
+ * @param Integer - The target pixel value for the font
+ * @return String - scale value in rems
+ */
+@function font-size($num) {
+    @return ($num / $base-font-size) * 1rem;
+}
