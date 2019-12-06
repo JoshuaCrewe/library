@@ -12,7 +12,7 @@
 
 </style>
 <header>
-    <a href="/" on:click={clearSearch}>
+    <a href="/" use:link>
         <h1>Library.</h1>
     </a>
 
@@ -25,10 +25,10 @@
 </header>
 
 <script>
-    import {link, push} from 'svelte-spa-router'
+    import {link, pop} from 'svelte-spa-router'
 
     function clearSearch(e) {
         e.preventDefault();
-        push('/');
+        pop('/');
     }
 </script>
