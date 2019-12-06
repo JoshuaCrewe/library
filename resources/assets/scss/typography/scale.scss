@@ -3,23 +3,23 @@
 }
 
 @mixin alpha {
-    @include type(32, 6);
+    @include type(39, 7);
 }
 
 @mixin beta {
-    @include type(28, 5);
+    @include type(31, 6);
 }
 
 @mixin gamma {
-    @include type(24, 6);
+    @include type(25, 6);
 }
 
 @mixin delta {
-    @include gamma;
+    @include type(20, 5);
 }
 
 @mixin epsilon {
-    @include type(20);
+    @include type(16);
 }
 
 @mixin zeta {

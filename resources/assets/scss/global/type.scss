@@ -4,7 +4,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "ITF-Black";
+    font-family: $title-font;
 }
 
 h1,
@@ -44,4 +44,8 @@ h6 {
 
 .iota {
     @include iota;
+}
+
+.body-font {
+    font-family: $body-font;
 }
