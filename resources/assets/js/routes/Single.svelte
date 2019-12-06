@@ -89,15 +89,17 @@
 
 </div>
 
-{#if $items.currentSearch !== ''}
-    <button class="button" on:click={returnToResults}>
-        <svg class="feather feather-button" width="25" height="24">
-            <use xlink:href="#icon--chevron-left"></use>
-        </svg>
+<div class="item-footer"> 
+    {#if $items.currentSearch !== ''}
+        <button class="button epsilon" on:click={returnToResults}>
+            <svg class="feather feather-button" width="25" height="24">
+                <use xlink:href="#icon--chevron-left"></use>
+            </svg>
 
-        Return to results 
-    </button>
-{/if}
+            Return to results 
+        </button>
+    {/if}
+</div>
 
 
 <style>
@@ -151,6 +153,17 @@
         margin-top: 4rem;
         list-style: none;
         padding-left: 0;
+    }
+
+    .item-footer {
+        max-width: 75%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .button {
+        margin: 2rem 0 ;
     }
 
     @media (max-width: 900px) {
