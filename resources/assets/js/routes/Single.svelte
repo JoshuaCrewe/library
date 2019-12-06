@@ -31,82 +31,80 @@
     }
 
 
-
 </script>
 
-<Form {params} />
+<div class="form-wrap">
+    <Form {params} />
+</div>
 
-{#if data.title}
-    <h1>
-        <a href="/" use:link>
+<div class="item">
+    {#if data.title}
+        <h1 class="item-title">
             {data.title}
-        </a>
-    </h1>
-{/if}
+        </h1>
+    {/if}
+    {#if data.author}
+        <h3 class="item-author body-font">
+            {data.author}
+        </h3>
+    {/if}
 
-{#if loading }
-    <p class="loading">
-        <svg class="feather feather--loading">
-            <use xlink:href="#icon--loading"></use>
-        </svg>
-    </p>
-{:else}
-    <div class="book">
+    <div class="item-wrap">
+        
+        <div class="item-image">
+            <img class="" src="{data.image}" alt="{data.title}">
+            {#if data.genres}
+                <ul class="item-genres">
+                    {#each data.genres as genre, i}
+                        <li>
+                            {genre}
+                        </li>
+                    {/each}
+                </ul>
+            {/if}
+        </div>
 
-        <img src="{data.image}" alt="{data.title}">
-        {#if data.author}
-            <h3>
-                {data.author}
-            </h3>
-        {/if}
-        {#if data.ISBN}
-            <p>
-                ISBN : {data.ISBN}
-            </p>
-        {/if}
-        {#if data.genres}
-            <ul>
-                {#each data.genres as genre, i}
-                    <li>
-                        {genre}
-                    </li>
-                {/each}
-            </ul>
-        {/if}
-        {#if data.summary}
-            <p>
-                {data.summary}
-            </p>
-        {/if}
+        <div class="item-details">
+            {#if data.summary}
+                <p class="item-summary">
+                    {data.summary}
+                </p>
+            {/if}
 
-        {#if data.status}
-            <ul class="status">
-                {@html data.status}
-            </ul>
-        {/if}
+            <h3>Details</h3>
+            {#if data.ISBN}
+                <p>
+                    ISBN : {data.ISBN}
+                </p>
+            {/if}
 
+        </div>
     </div>
-{/if }
 
-<button on:click={returnToResults}> Return to results </button>
+    {#if data.status}
+        <ul class="item-status">
+            {@html data.status}
+        </ul>
+    {/if}
+
+</div>
+
+{#if $items.currentSearch !== ''}
+    <button class="button" on:click={returnToResults}>
+        <svg class="feather feather-button" width="25" height="24">
+            <use xlink:href="#icon--chevron-left"></use>
+        </svg>
+
+        Return to results 
+    </button>
+{/if}
 
 
 <style>
-    h1 {
-        text-align: center;
-    }
-    :global(.feather) {
-        width: 48px;
-    }
-
-    .loading {
-        text-align: center;
-    }
-
-    .loading svg {
-        animation: spin infinite 2s linear;
-        width: 40px;
-        height: 40px;
+    .form-wrap {
+        margin: 2rem 0;
+        transition: margin .3s ease;
+        padding: 0 2rem;
     }
 
     @keyframes spin {
@@ -118,14 +116,58 @@
     :global(.hidden) {
         display: none;
     }
-    .book {
+
+    .item {
         margin: 0 auto;
-        max-width: 600px;
+        max-width: 75%;
     }
 
-    .status {
+    .item-title {
+        margin-bottom: .25rem;
+    }
+
+    .item-author {
+        margin-bottom: .25rem;
+    }
+
+    .item-wrap {
+        display: flex;
+    }
+
+    .item-details {
+        flex: 1;
+    }
+
+    .item-image {
+        width: 200px;
+        flex: 1;
+    }
+
+    .item-genres  {
+        list-style: none;
+    }
+
+    .item-status {
+        margin-top: 4rem;
         list-style: none;
         padding-left: 0;
+    }
+
+    @media (max-width: 900px) {
+        .item {
+            max-width: 100%;
+            padding: 0 2rem;
+        }
+
+    }
+    @media (max-width: 600px) {
+        .item-wrap {
+            flex-direction: column;
+        }
+
+        .item-genres {
+            margin-bottom: 2rem;
+        }
     }
 
 </style>

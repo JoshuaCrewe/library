@@ -2,6 +2,8 @@
     import Router, {wrap} from 'svelte-spa-router'
     import routes from './routes'
 
+    import './global.css'
+
     import Header from './components/Header.svelte'
     import Footer from './components/Footer.svelte'
 
@@ -23,6 +25,8 @@
 
 <Header />
 
-<Router {routes} on:routeLoaded={routeLoaded} />
+<main id="main">
+    <Router {routes} on:routeLoaded={routeLoaded} />
+</main>
 
 <Footer />
