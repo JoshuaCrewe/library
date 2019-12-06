@@ -1,6 +1,7 @@
 <script>
     import { fade } from 'svelte/transition';
     import {link} from 'svelte-spa-router'
+    import Form from './../components/Form.svelte';
 
     export let params = {}
     export let data = {};
@@ -21,6 +22,8 @@
 
 
 </script>
+
+<Form {params} />
 
 {#if data.title}
     <h1>
