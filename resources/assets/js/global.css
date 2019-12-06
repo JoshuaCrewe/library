@@ -1,0 +1,17 @@
+:root {
+    --black: #323232;
+    --white: #fff;
+    --grey: rgb(225,225,225);
+}
+
+.section {
+    padding: 2rem;
+}
+
+.center {
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}

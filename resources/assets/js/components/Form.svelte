@@ -13,7 +13,6 @@
 
     onMount(async () => {
         if (params.term) {
-            /* console.log('this has params'); */
             items.update( items => {
                 items.currentSearch = params.term;
                 return items;
@@ -63,20 +62,17 @@
 <form on:submit|preventDefault={handleSubmit}>
     <input type="search" id="search" bind:value={searchValue}>
     <button>
+    {#if loading }
+        <svg class="feather feather-search loading" width="25" height="24">
+            <use xlink:href="#icon--loading"></use>
+        </svg>
+    {:else}
         <svg class="feather feather-search" width="25" height="24">
             <use xlink:href="#icon--search"></use>
         </svg>
+    {/if }
     </button>
 </form>
-
-
-{#if loading }
-    <p class="loading">
-        <svg>
-            <use xlink:href="#icon--loading"></use>
-        </svg>
-    </p>
-{/if }
 
 <style>
     form {
@@ -89,25 +85,23 @@
 
         border-radius: 4px;
         border: 1px solid rgba(0,0,0,0.15);
-        box-shadow: 0 2px 3px rgba(0,0,0,0.06);
 
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 2rem;
 
         transition: box-shadow .3s ease;
     }
 
     form:focus-within {
-        box-shadow: 0 2px 30px rgba(0,0,0,0.06);
         transition: box-shadow .3s ease;
+        /* border: 1px solid rgba(0,0,0,.5); */
     }
 
     input {
         display: block;
         height: 100%;
         margin: 0;
-        padding: .5rem 48px .5rem .75rem;
+        padding: 1rem 48px 1rem .75rem;
         border: 0;
         font-size: 1.5rem;
         width: 100%;
@@ -143,14 +137,9 @@
         }
     }
 
-    .loading {
-        text-align: center;
-    }
 
-    .loading svg {
+    .loading {
         animation: spin infinite 2s linear;
-        width: 70px;
-        height: 70px;
     }
 
     @keyframes spin {

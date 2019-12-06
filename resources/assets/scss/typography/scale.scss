@@ -1,21 +1,13 @@
 @mixin omega {
     @include type(48, 8);
-
-    @media (max-width: 800px) {
-        @include type(32, 6);
-    }
 }
 
 @mixin alpha {
     @include type(32, 6);
-
-    @media (max-width: 800px) {
-        @include type(24, 6);
-    }
 }
 
 @mixin beta {
-    @include alpha;
+    @include type(28, 5);
 }
 
 @mixin gamma {
@@ -41,14 +33,3 @@
 @mixin base {
     @include type;
 }
-
-/*  
- * Example :
- *   @mixin alpha {
- *       @include type(32, 6);
- *
- *       @media (max-width: 800px) {
- *           @include type(24);
- *       }
- *   }
- */

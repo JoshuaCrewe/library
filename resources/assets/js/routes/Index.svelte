@@ -9,8 +9,19 @@
 
     export let params = {}
 </script>
+<div class="form-wrap" class:no-results={$items.results.length === 0}>
+    <Form {params}/>
 
-<Form {params}/>
+    {#if $items.results.length === 0 }
+        <div class="introduction">
+            <h2 class="gamma subtitle">Search for books, music, films and more.</h2>
+            <p class="hide">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+        </div>
+    {/if}
+</div>
 
 {#if $items.results.length !== 0}
     <div class="items">
@@ -83,5 +94,27 @@
         color: green;
         display: inline-block;
         padding: .25rem .5rem;
+    }
+
+    .form-wrap {
+        margin: 2rem 0;
+        transition: margin .3s ease;
+        padding: 0 2rem;
+    }
+
+    .no-results {
+        margin: 8rem 0;
+        transition: margin .3s ease;
+    }
+
+    .introduction {
+        width: 66%;
+        margin: 0 auto;
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .subtitle {
+        margin-bottom: 1.5rem;
     }
 </style>

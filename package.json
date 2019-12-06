@@ -17,6 +17,7 @@
     "dependencies": {
         "laravel-mix": "^4.1.2",
         "laravel-mix-svelte": "wewowweb/laravel-mix-svelte",
+        "node-sass": "^4.13.0",
         "reset-css": "^5.0.1",
         "svelte-spa-router": "^2.0.0",
         "svg-spritemap-webpack-plugin": "^3.5.1"
