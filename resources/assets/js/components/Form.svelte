@@ -4,7 +4,6 @@
     import { push } from 'svelte-spa-router'
     import items from './../stores';
 
-    export let data = {};
     export let params = {}
 
     let loading = false;
