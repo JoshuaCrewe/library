@@ -10,6 +10,7 @@ mix.options({
 
 mix.js("resources/assets/js/app.js", "public/dist/js")
     .sass("resources/assets/scss/app.scss", "public/dist/css")
+    .options({ processCssUrls: false })
     .svelte({ withSass: true });
 
 // Create a sprite sheet based on a folder of SVGs

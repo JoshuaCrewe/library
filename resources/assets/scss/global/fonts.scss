@@ -1,7 +1,7 @@
 @font-face {
     font-family: "ITF-Black";
-    src: url("/resources/assets/fonts/inter-black.woff2") format("woff2"),
-        url("/resources/assets/fonts/inter-black.woff") format("woff");
+    src: url("/fonts/inter-black.woff2") format("woff2"),
+        url("/fonts/inter-black.woff") format("woff");
     font-weight: 700;
     font-style: normal;
     font-display: fallback;
@@ -9,8 +9,8 @@
 
 @font-face {
     font-family: "ITF-Regular";
-    src: url("/resources/assets/fonts/inter-regular.woff2") format("woff2"),
-        url("/resources/assets/fonts/inter-regular.woff") format("woff");
+    src: url("/fonts/inter-regular.woff2") format("woff2"),
+        url("/fonts/inter-regular.woff") format("woff");
     font-weight: 700;
     font-style: normal;
     font-display: fallback;
