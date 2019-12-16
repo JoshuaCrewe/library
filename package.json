@@ -5,6 +5,10 @@
     "repository": "git@github.com:JoshuaCrewe/library.git",
     "author": "Joshua Crewe <joshua@venncreative.co.uk>",
     "license": "MIT",
+    "engines": {
+        "node": "12.13.0",
+        "yarn": "1.19.1"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
