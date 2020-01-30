@@ -16,6 +16,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('/lists', 'BooksController@lists');
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/search/{terms}', 'BooksController@search');
 });
 

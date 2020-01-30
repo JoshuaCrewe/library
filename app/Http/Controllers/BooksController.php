@@ -4,23 +4,105 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Goutte\Client;
+use Symfony\Component\BrowserKit\CookieJar;
+use Symfony\Component\BrowserKit\Cookie;
 
 class BooksController extends Controller
 {
-    public function login(Response $response, $barcode)
+    public function handleLogin()
     {
+        $barcode = env('BARCODE');
         $client = new Client();
         $result = [];
         $crawler = $client->request('GET', 'https://capitadiscovery.co.uk/cornwall/login');
         $form = $crawler->selectButton('Login')->form();
         $crawler = $client->submit($form, array('barcode' => $barcode, 'institutionId' => ''));
-        $crawler->filter('.accountSummary')->each(function ($node) {
-            print trim($node->text());
+
+        // Response
+        $cookieJar = $client->getCookieJar();
+        // var_dump($cookieJar);
+        $values = $cookieJar->allValues('https://capitadiscovery.co.uk/cornwall/');
+        $result['values'] = $values;
+
+        // @TODO
+        // We do not want to loop through them all really. We just want the session
+        foreach ($values as $name => $value) {
+
+            // @TODO
+            // Ideally we want to set this for the session rather than what is here
+            setcookie($name, $value, time() + (86400 * 30), "/");
+
+            $cookie = $value;
+        }
+
+        return $cookie;
+    }
+
+    public function login(Response $response, $barcode)
+    {
+        // Take the barcode and save it in an encrypted cookie / local storage ?
+
+        // 
+        $client = new Client();
+        $result = [];
+        $cookie = self::getAccess();
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+        $crawler = $client->request('GET', 'https://capitadiscovery.co.uk/cornwall/account');
+
+        $crawler->filter('.accountSummary')->each(function ($node) use(&$result) {
+            $result[] = trim($node->text());
+        });
+
+        return response()->json([
+            'results'=> $result,
+        ]);
+    }
+
+    private function getAccess() 
+    {
+        if(isset($_COOKIE['session'])) {
+            $cookie = $_COOKIE['session'];
+        } else {
+            $cookie = $this->handleLogin();
+        };
+        return $cookie;
+    }
+
+    public function lists(Response $response)
+    {
+        $cookie = self::getAccess();
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+
+        $result = [];
+
+        $crawler = $client->request('GET', 'https://capitadiscovery.co.uk/cornwall/lists');
+
+        $lists = $crawler->filter('.listmenu')->count();
+
+        if ($crawler->filter('.listmenu')->count() < 1) {
+            $this->handleLogin();
+            $this->lists($response);
+            $result['perform login'] = true;
+        }
+
+        $crawler->filter('.listmenu')->each(function ($node) use (&$result) {
+            $result[] = trim($node->text());
         });
 
         return response()->json([
             'results'=> $result
         ]);
+
     }
     public function search(Response $response, $terms)
     {
