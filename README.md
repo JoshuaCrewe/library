@@ -26,5 +26,10 @@ We want to handle the login so that we can see things ahout our account like lis
 -   Add a login form to the dashboard URL on front end
 -   Handle login using the API to fetch data
 -   Perform actions like saving to a list
+-   If possible login on initial load (help power buttons in search result)
 
-At the moment we can't save the login state (which is a session cookie) so for each request to the dashboard we need to go through the login steps (go to login url, enter barcode into form and submit)
+**Pages**
+
+-   Dashboard with a series of links (fetch each tab and present in one page ?)
+-   History page
+-   List of saved items

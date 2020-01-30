@@ -20,6 +20,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('/dashboard', 'BooksController@login');
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/search/{terms}', 'BooksController@search');
 });
 
