@@ -11,67 +11,24 @@
 |
 */
 
-// $router->group(['prefix' => 'api'], function () use ($router) {
-//     $router->get('/login/{barcode}', 'BooksController@login');
-// });
-//
-// $router->group(['prefix' => 'api'], function () use ($router) {
-//     $router->get('/lists', 'BooksController@lists');
-// });
-//
-// $router->group(['prefix' => 'api'], function () use ($router) {
-//     $router->get('/dashboard', 'BooksController@login');
-// });
-//
-// $router->group(['prefix' => 'api'], function () use ($router) {
-//     $router->get('/search/{terms}', 'BooksController@search');
-// });
-//
-//
-// $router->group(['prefix' => 'api'], function () use ($router) {
-//     $router->get('/item/{id}', 'BooksController@single');
-// });
-
 /*
 * Routes for Items
 */
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/items', 'ItemsController@index');
-});
+$router->get('/items', 'ItemsController@index');
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/items/{id}', 'ItemsController@show');
-});
+$router->get('/items/{id}', 'ItemsController@show');
 
 /*
 * Routes for Search
 */
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/search/{terms}', 'ItemsController@index');
-});
+$router->get('/search/{terms}', 'ItemsController@index');
 
 /*
 * Routes for lists
 */
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/lists/{list}', 'ListsController@show');
-});
+$router->get('lists[/{name}]', 'ListsController@show');
 
 /*
-* Routes for lists
+* Routes for the Dashbaord
 */
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/lists/{list}', 'ListsController@show');
-});
-
-/*
-* Routes for logins
-*/
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/dashboard', 'DashboardController@index');
-});
-
-
-$router->get('/{route:.*}/', function ()  {
-    return view('app');
-});
+$router->get('/dashboard', 'DashboardController@index');

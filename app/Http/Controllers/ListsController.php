@@ -12,8 +12,8 @@ class ListsController
         Lists::all();
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, $name = null)
     {
-        return Lists::show($request, $id);
+        return Lists::show($request, $name);
     }
 }

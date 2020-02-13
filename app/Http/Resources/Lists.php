@@ -17,7 +17,7 @@ class Lists
         ];
     }
 
-    static function show(Request $request, $list)
+    static function show(Request $request, $list = null)
     {
         if (!isset($_COOKIE['session'])) {
             $cookie = $request->get('sessionCookie');
@@ -36,21 +36,6 @@ class Lists
         // We are looking for lists
         $crawler = $client->request('GET', env('API_URL') . '/lists');
 
-        // We are checking for something on the page that should be there
-        if ($crawler->filter('.listmenu')->count() < 1) {
-            // If we don't find it check that we are logged in
-            self::authenticate();
-            // Then check again
-            $this->lists($response);
-
-            // If we have already tried logging in
-            if (isset($result['perform login'])) {
-                // Then send a 404
-                abort(404);
-            }
-            // Make a note of the loging attempt
-            $result['perform login'] = true;
-        }
         $items = [];
 
         $crawler->filter('.list .item')->each(function ($node) use (&$items) {
