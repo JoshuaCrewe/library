@@ -32,3 +32,9 @@ $router->get('lists[/{name}]', 'ListsController@show');
 * Routes for the Dashbaord
 */
 $router->get('/dashboard', 'DashboardController@index');
+
+
+$router->get('/', function ()  {
+    return view('app');
+});
+

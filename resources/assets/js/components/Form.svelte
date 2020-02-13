@@ -26,7 +26,7 @@
     async function getItems() {
         loading = true;
 
-        let url = '/api/search/' + $items.currentSearch + '?page=1';
+        let url = '/search/' + $items.currentSearch + '?page=1';
         const response = await fetch(url);
         const json = await response.json();
 

@@ -11,7 +11,7 @@
     async function getItem() {
         loading = true;
 
-        let url = '/api/item/' + params.id;
+        let url = '/items/' + params.id;
         const response = await fetch(url);
         const json = await response.json();
         data = json.results;
