@@ -30,6 +30,16 @@
             <Item {item}/>
         {/each}
     </div>
+
+    <div class="pagination" >
+        <button>
+            Next
+        </button>
+        <button>
+            Previous
+        </button>
+        
+    </div>
 {/if}
 
 

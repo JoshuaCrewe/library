@@ -9,10 +9,6 @@
 
     import items from './stores';
 
-    items.subscribe(value => {
-        console.log(value);
-    });
-
     function routeLoaded(event) {
         if (event.detail.location ==='/') {
             items.set({

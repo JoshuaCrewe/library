@@ -11,26 +11,66 @@
 |
 */
 
+// $router->group(['prefix' => 'api'], function () use ($router) {
+//     $router->get('/login/{barcode}', 'BooksController@login');
+// });
+//
+// $router->group(['prefix' => 'api'], function () use ($router) {
+//     $router->get('/lists', 'BooksController@lists');
+// });
+//
+// $router->group(['prefix' => 'api'], function () use ($router) {
+//     $router->get('/dashboard', 'BooksController@login');
+// });
+//
+// $router->group(['prefix' => 'api'], function () use ($router) {
+//     $router->get('/search/{terms}', 'BooksController@search');
+// });
+//
+//
+// $router->group(['prefix' => 'api'], function () use ($router) {
+//     $router->get('/item/{id}', 'BooksController@single');
+// });
+
+/*
+* Routes for Items
+*/
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/login/{barcode}', 'BooksController@login');
+    $router->get('/items', 'ItemsController@index');
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/lists', 'BooksController@lists');
+    $router->get('/items/{id}', 'ItemsController@show');
 });
 
+/*
+* Routes for Search
+*/
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/dashboard', 'BooksController@login');
+    $router->get('/search/{terms}', 'ItemsController@index');
 });
 
+/*
+* Routes for lists
+*/
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/search/{terms}', 'BooksController@search');
+    $router->get('/lists/{list}', 'ListsController@show');
 });
 
-
+/*
+* Routes for lists
+*/
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/item/{id}', 'BooksController@single');
+    $router->get('/lists/{list}', 'ListsController@show');
 });
+
+/*
+* Routes for logins
+*/
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('/dashboard', 'DashboardController@index');
+});
+
 
 $router->get('/{route:.*}/', function ()  {
     return view('app');

@@ -20,7 +20,8 @@
         align-items: center;
         justify-content: space-between;
         padding: 1rem 2rem;
-        background-color: var(--grey);
+        background-color: var(--white);
+        border-bottom: 2px solid #edf2f7;
     }
 
     h1 {

@@ -9,6 +9,7 @@
     let loading = false;
 
     let searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
+    console.log($items.page);
 
     onMount(async () => {
         if (params.term) {
@@ -25,7 +26,7 @@
     async function getItems() {
         loading = true;
 
-        let url = '/api/search/' + $items.currentSearch;
+        let url = '/api/search/' + $items.currentSearch + '?page=1';
         const response = await fetch(url);
         const json = await response.json();
 
@@ -83,7 +84,7 @@
         background-color: #fff;
 
         border-radius: 4px;
-        border: 1px solid rgba(0,0,0,0.15);
+        /* border: 1px solid rgba(0,0,0,0.15); */
 
         justify-content: space-between;
         align-items: center;
@@ -97,12 +98,13 @@
     }
 
     input {
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
         display: block;
         height: 100%;
         margin: 0;
-        padding: 1rem 48px 1rem .75rem;
+        padding: .5rem 48px .5rem 1rem;
         border: 0;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         width: 100%;
         min-width: 50%;
         font-family: 'ITF-Regular';

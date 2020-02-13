@@ -14,8 +14,8 @@
 
     footer {
         padding: 3rem 2rem;
-        background-color:var(--black);
-        color:var(--grey);
+        background-color:var(--white);
+        color:var(--black);
         display: flex;
         align-items: center;
         justify-content: flex-end;
