@@ -7,30 +7,4 @@
             <a href="https://capitadiscovery.co.uk/cornwall/account">Falmouth Library Services</a>
         </li>
     </ul>
-
 </footer>
-
-<style>
-
-    footer {
-        padding: 3rem 2rem;
-        background-color:var(--white);
-        color:var(--black);
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-    }
-
-    ul {
-        list-style: none;
-        text-align: right;
-    }
-
-    ul li a {
-        display: inline-block;
-        padding: .5rem 0;
-
-    }
-
-</style>

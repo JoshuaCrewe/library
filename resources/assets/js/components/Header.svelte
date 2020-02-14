@@ -13,23 +13,3 @@
         </li>
     </ul>
 </header>
-
-<style>
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 2rem;
-        background-color: var(--white);
-        border-bottom: 2px solid #edf2f7;
-    }
-
-    h1 {
-        margin-bottom: 0;
-    }
-
-    .menu {
-        list-style: none;
-    }
-
-</style>
