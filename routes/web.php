@@ -11,30 +11,31 @@
 |
 */
 
-/*
-* Routes for Items
-*/
-$router->get('/items', 'ItemsController@index');
+$router->group(['prefix' => 'api'], function () use ($router) {
 
-$router->get('/items/{id}', 'ItemsController@show');
+    /*
+    * Routes for Items
+    */
+    $router->get('/items', 'ItemsController@index');
 
-/*
-* Routes for Search
-*/
-$router->get('/search/{terms}', 'ItemsController@index');
+    $router->get('/items/{id}', 'ItemsController@show');
 
-/*
-* Routes for lists
-*/
-$router->get('lists[/{name}]', 'ListsController@show');
+    /*
+    * Routes for Search
+    */
+    $router->get('/search/{terms}', 'ItemsController@index');
 
-/*
-* Routes for the Dashbaord
-*/
-$router->get('/dashboard', 'DashboardController@index');
+    /*
+    * Routes for lists
+    */
+    $router->get('lists[/{name}]', 'ListsController@show');
 
-
-$router->get('/', function ()  {
-    return view('app');
+    /*
+    * Routes for the Dashbaord
+    */
+    $router->get('/dashboard', 'DashboardController@index');
 });
 
+$router->get('/{route:.*}/', function ()  {
+    return view('app');
+});
