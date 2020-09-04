@@ -83,11 +83,15 @@
             push('/');
         }
     }
+
+    function handleClear() {
+        searchValue = '';
+    }
 </script>
 
 <form on:submit|preventDefault={handleSubmit} class="relative flex justify-center pt-20 pb-10 px-4 md:px-8 w-full">
     <div class="relative w-full md:w-1/2">
-        <input type="search" id="search" bind:value={searchValue} class="appearance-none rounded-lg border-gray-200 bg-gray-200 pl-10 pr-4 py-2 w-full placeholder:text-sm border-solid focus:border-gray-300 focus:shadow-sm border-2 focus:outline-none" placeholder="Search">
+        <input type="search" id="search" bind:value={searchValue} class="appearance-none rounded-lg border-gray-200 bg-gray-200 pl-10 pr-8 py-2 w-full placeholder:text-sm border-solid focus:border-gray-300 focus:shadow-sm border-2 focus:outline-none" placeholder="Search">
         <button class="absolute left-0 top-0 my-2 ml-2">
             {#if loading }
                 <svg class="animate-spin inline" width="25" height="24">
@@ -99,5 +103,13 @@
                 </svg>
             {/if }
         </button>
+        
+        {#if searchValue != ''}
+            <button class="absolute right-0 top-0 my-2 mr-2" on:click|preventDefault={handleClear}>
+                <svg class="" width="25" height="25">
+                    <use xlink:href="#icon--close"></use>
+                </svg>
+            </button>
+        {/if}
     </div>
 </form>
