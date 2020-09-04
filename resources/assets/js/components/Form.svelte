@@ -1,14 +1,19 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onMount, createEventDispatcher } from 'svelte';
     import { fade } from 'svelte/transition';
     import { push } from 'svelte-spa-router'
     import items from './../stores';
+
+
+	const dispatch = createEventDispatcher();
 
     export let params = {}
 
     let loading = false;
 
     let searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
+    /* console.log($items.page); */
+    console.log(searchValue);
 
     onMount(async () => {
         if (params.term) {
@@ -24,8 +29,9 @@
 
     async function getItems() {
         loading = true;
+        dispatch('loading', true);
 
-        let url = '/api/search/' + $items.currentSearch;
+        let url = '/api/search/' + $items.currentSearch + '?page=1';
         const response = await fetch(url);
         const json = await response.json();
 
@@ -34,8 +40,11 @@
             return items;
         })
 
+        searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
+
 
         loading = false;
+        dispatch('loading', false);
         push(`/search/${$items.currentSearch}`)
     }
 
@@ -45,7 +54,6 @@
             items.update(items => {
                 items.currentSearch = value.replace(/ /g, "+");
                 return items;
-
             })
             getItems();
         } else {
@@ -58,91 +66,19 @@
     }
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-    <input type="search" id="search" bind:value={searchValue}>
-    <button>
-    {#if loading }
-        <svg class="feather feather-search loading" width="25" height="24">
-            <use xlink:href="#icon--loading"></use>
-        </svg>
-    {:else}
-        <svg class="feather feather-search" width="25" height="24">
-            <use xlink:href="#icon--search"></use>
-        </svg>
-    {/if }
-    </button>
+<form on:submit|preventDefault={handleSubmit} class="relative flex justify-center pt-20 pb-10 px-4 md:px-8 w-full">
+    <div class="relative w-full md:w-1/2">
+        <input type="search" id="search" bind:value={searchValue} class="appearance-none rounded-lg border-gray-200 bg-gray-200 pl-10 pr-4 py-2 w-full placeholder:text-sm border-solid focus:border-gray-300 focus:shadow-sm border-2 focus:outline-none" placeholder="Search">
+        <button class="absolute left-0 top-0 my-2 ml-2">
+            {#if loading }
+                <svg class="animate-spin inline" width="25" height="24">
+                    <use xlink:href="#icon--loading"></use>
+                </svg>
+            {:else}
+                <svg class="" width="25" height="24">
+                    <use xlink:href="#icon--search"></use>
+                </svg>
+            {/if }
+        </button>
+    </div>
 </form>
-
-<style>
-    form {
-        width: 66%;
-        margin: 0 auto;
-        box-sizing: border-box;
-        display: flex;
-        position: relative;
-        background-color: #fff;
-
-        border-radius: 4px;
-        border: 1px solid rgba(0,0,0,0.15);
-
-        justify-content: space-between;
-        align-items: center;
-
-        transition: box-shadow .3s ease;
-    }
-
-    form:focus-within {
-        transition: box-shadow .3s ease;
-        /* border: 1px solid rgba(0,0,0,.5); */
-    }
-
-    input {
-        display: block;
-        height: 100%;
-        margin: 0;
-        padding: 1rem 48px 1rem .75rem;
-        border: 0;
-        font-size: 1.5rem;
-        width: 100%;
-        min-width: 50%;
-        font-family: 'ITF-Regular';
-    }
-
-
-    button {
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        margin: 0;
-        cursor: pointer;
-
-        position: absolute;
-        right: 0;
-    }
-
-    button:focus {
-        background-color: #eee;
-    }
-
-    .feather {
-        width: 48px;
-        padding: 12px;
-        height: 48px;
-    }
-
-    @media(max-width: 600px) {
-        form {
-            width: 90%;
-        }
-    }
-
-
-    .loading {
-        animation: spin infinite 2s linear;
-    }
-
-    @keyframes spin {
-        from {transform:rotate(0deg);}
-        to {transform:rotate(360deg);}
-    }
-</style>

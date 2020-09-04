@@ -12,24 +12,28 @@
 */
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/login/{barcode}', 'BooksController@login');
-});
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/lists', 'BooksController@lists');
-});
+    /*
+    * Routes for Items
+    */
+    $router->get('/items', 'ItemsController@index');
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/dashboard', 'BooksController@login');
-});
+    $router->get('/items/{id}', 'ItemsController@show');
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/search/{terms}', 'BooksController@search');
-});
+    /*
+    * Routes for Search
+    */
+    $router->get('/search/{terms}', 'ItemsController@index');
 
+    /*
+    * Routes for lists
+    */
+    $router->get('lists[/{name}]', 'ListsController@show');
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/item/{id}', 'BooksController@single');
+    /*
+    * Routes for the Dashbaord
+    */
+    $router->get('/dashboard', 'DashboardController@index');
 });
 
 $router->get('/{route:.*}/', function ()  {

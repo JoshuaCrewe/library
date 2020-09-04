@@ -1,104 +1,22 @@
 <script>
     export let item;
-
-    console.log(item);
 </script>
-<a href="#/item/{item.id}" class="item">
-    <div class="item-image">
-        <img src="{item.image}" alt="{item.title}">
+<a href="#/item/{item.id}" class="flex hover:bg-gray-100 py-4 px-2">
+    <div class="w-1/3 pr-4">
+        <img src="{item.image}" alt="{item.title}" class="mb-0">
     </div>
-    <div class="item-details">
-        <h2 class="item-title">
+    <div class="w-2/3">
+        <h2 class="text-base mb-2 leading-6 md:text-xl lg:leading-8 lg:text-2xl md:mb-4">
             {item.title}
         </h2>
-        <h3 class="item-author delta body-font">
+        <h3 class="text-base mb-2 leading-4 body-font md:text-lg md:mb-4">
             {item.author}
         </h3>
-        <p class="item-format">
+        <p class="text-xs sm:text-sm bg-green-200 rounded px-1 inline-block mb-2">
             {item.format}
         </p>
-        <p>
+        <p class="text-sm leading-5 sm:text-base">
             {item.summary}
         </p>
     </div>
 </a>
-
-<style>
-    .item {
-        display: flex;
-        align-items: center;
-        width : 100%;
-        flex: 1 1 100%;
-        padding: 1rem 0;
-        margin-bottom: 2rem;
-    }
-
-    .item-title {
-        margin-bottom: .25rem;
-    }
-
-    .item-author {
-        margin-bottom: .25rem;
-    }
-
-    .item-image {
-        position: relative;
-        flex-basis: 25%;
-        margin-bottom: 0;
-        padding-bottom: 40%;
-    }
-
-    .item-image img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        object-fit: cover;
-    }
-
-    .item-details {
-        flex-basis: 75%;
-        flex: 2;
-        padding-left: 8rem;
-    }
-
-    .item-format {
-        color: #ccc;
-        display: inline-block;
-    }
-
-    @media (max-width: 900px) {
-        .item-image {
-            flex-basis: 33%;
-            padding-bottom: 50%;
-        }
-        .item-details {
-            padding-left: 4rem;
-        }
-
-    }
-
-    @media (max-width: 600px) {
-        .item {
-            flex-direction: column;
-        }
-
-        .item-image {
-            width: 100%;
-            padding-bottom: 0;
-            margin-bottom: 2rem;
-        }
-
-        .item-image img {
-            position: relative;
-        }
-
-        .item-details {
-            padding-left: 0rem;
-        }
-
-    }
-</style>

@@ -1,0 +1,11 @@
+.markup {
+    h3 {
+        @apply leading-normal;
+    }
+
+    ul {
+        li {
+            @apply mb-2;
+        }
+    }
+}

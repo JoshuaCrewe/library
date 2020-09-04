@@ -11,7 +11,7 @@
     async function getItem() {
         loading = true;
 
-        let url = '/api/item/' + params.id;
+        let url = '/api/items/' + params.id;
         const response = await fetch(url);
         const json = await response.json();
         data = json.results;
@@ -33,154 +33,93 @@
 
 </script>
 
-<div class="form-wrap">
-    <Form {params} />
-</div>
-
-<div class="item">
-    {#if data.title}
-        <h1 class="item-title">
-            {data.title}
-        </h1>
-    {/if}
-    {#if data.author}
-        <h3 class="item-author body-font">
-            {data.author}
-        </h3>
-    {/if}
-
-    <div class="item-wrap">
-        
-        <div class="item-image">
-            <img class="" src="{data.image}" alt="{data.title}">
-            {#if data.genres}
-                <ul class="item-genres">
-                    {#each data.genres as genre, i}
-                        <li>
-                            {genre}
-                        </li>
-                    {/each}
-                </ul>
-            {/if}
-        </div>
-
-        <div class="item-details">
-            {#if data.summary}
-                <p class="item-summary">
-                    {data.summary}
-                </p>
-            {/if}
-
-            <h3>Details</h3>
-            {#if data.ISBN}
-                <p>
-                    ISBN : {data.ISBN}
-                </p>
-            {/if}
-
-        </div>
+<div class="min-h-screen">
+    <div class="">
+        <Form {params} />
     </div>
 
-    {#if data.status}
-        <ul class="item-status">
-            {@html data.status}
-        </ul>
-    {/if}
+    
+    <div class="layout flex flex-col lg:w-3/4 m-auto">
+        {#if loading }
+            <!-- image -->
+            <div class="bg-gray-200 m-auto mb-4 " style="width:200px; height:304px;"> </div>
 
+            <!-- Book Title -->
+            <div class="h-10 w-1/2 m-auto bg-gray-200 mb-2"> </div>
+            <!-- Book Author -->
+            <div class="h-8 w-1/3 m-auto bg-gray-200 mb-4"> </div>
+
+            <!-- Book Meta -->
+            <ul class="flex justify-center items-center mb-4">
+                <li class="bg-gray-200 rounded px-2 mr-2 text-xs h-6 w-12"> </li>
+                <li class="bg-gray-200 rounded px-2 mr-2 text-xs h-6 w-8"> </li>
+            </ul>
+        {/if}
+        <div class="mb-4">
+            <img class="m-auto" src="{data.image}" alt="{data.title}" height="304" width="200">
+        </div>
+
+        <header class="center">
+            {#if data.title}
+                <h1 class="text-4xl">
+                    {data.title}
+                </h1>
+            {/if}
+            {#if data.author}
+                <h3 class="text-2xl body-font mb-4">
+                    {data.author}
+                </h3>
+            {/if}
+        </header>
+
+        <div class="">
+            
+            <div class="">
+                {#if data.genres}
+                    <ul class="flex justify-center items-center mb-4">
+                        {#each data.genres as genre, i}
+                            <li class="bg-blue-200 rounded px-2 mr-2 text-xs">
+                                {genre}
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
+
+            <div class="mb-2">
+                {#if data.summary}
+                    <p class="item-summary">
+                        {data.summary}
+                    </p>
+                {/if}
+
+                {#if data.ISBN}
+                    <h3>Details</h3>
+                    <p>
+                        ISBN : {data.ISBN}
+                    </p>
+                {/if}
+
+            </div>
+        </div>
+
+        {#if data.status}
+            <ul class="markup">
+                {@html data.status}
+            </ul>
+        {/if}
+
+    </div>
+
+    <div class="layout lg:w-3/4 m-auto">
+        {#if $items.currentSearch !== ''}
+            <button class="button" on:click={returnToResults}>
+                <svg class="" width="18" height="18">
+                    <use xlink:href="#icon--chevron-left"></use>
+                </svg>
+
+                Return to results 
+            </button>
+        {/if}
+    </div>
 </div>
-
-<div class="item-footer"> 
-    {#if $items.currentSearch !== ''}
-        <button class="button epsilon" on:click={returnToResults}>
-            <svg class="feather feather-button" width="25" height="24">
-                <use xlink:href="#icon--chevron-left"></use>
-            </svg>
-
-            Return to results 
-        </button>
-    {/if}
-</div>
-
-
-<style>
-    .form-wrap {
-        margin: 2rem 0;
-        transition: margin .3s ease;
-        padding: 0 2rem;
-    }
-
-    @keyframes spin {
-        from {transform:rotate(0deg);}
-        to {transform:rotate(360deg);}
-    }
-
-    :global(.jsHidden),
-    :global(.hidden) {
-        display: none;
-    }
-
-    .item {
-        margin: 0 auto;
-        max-width: 75%;
-    }
-
-    .item-title {
-        margin-bottom: .25rem;
-    }
-
-    .item-author {
-        margin-bottom: .25rem;
-    }
-
-    .item-wrap {
-        display: flex;
-    }
-
-    .item-details {
-        flex: 1;
-    }
-
-    .item-image {
-        width: 200px;
-        flex: 1;
-    }
-
-    .item-genres  {
-        list-style: none;
-    }
-
-    .item-status {
-        margin-top: 4rem;
-        list-style: none;
-        padding-left: 0;
-    }
-
-    .item-footer {
-        max-width: 75%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .button {
-        margin: 2rem 0 ;
-    }
-
-    @media (max-width: 900px) {
-        .item {
-            max-width: 100%;
-            padding: 0 2rem;
-        }
-
-    }
-    @media (max-width: 600px) {
-        .item-wrap {
-            flex-direction: column;
-        }
-
-        .item-genres {
-            margin-bottom: 2rem;
-        }
-    }
-
-</style>

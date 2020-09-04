@@ -2,33 +2,16 @@
     import {link} from 'svelte-spa-router'
 </script>
 
-<header>
-    <a href="/" use:link>
+<header class="layout bg-gray-900 text-white flex justify-between">
+    <a href="/" use:link class="hover:text-gray-500 focus:text-gray-500">
         <h1 class="title gamma">Library.</h1>
     </a>
 
-    <ul class="menu">
-        <li>
-            <a href="/dashboard" use:link>Dashboard</a>
+    <ul class="flex justify-center items-center">
+        <li class="">
+            <a href="/dashboard" use:link class="hover:text-gray-500 focus:text-gray-500">
+                Dashboard
+            </a>
         </li>
     </ul>
 </header>
-
-<style>
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 2rem;
-        background-color: var(--grey);
-    }
-
-    h1 {
-        margin-bottom: 0;
-    }
-
-    .menu {
-        list-style: none;
-    }
-
-</style>

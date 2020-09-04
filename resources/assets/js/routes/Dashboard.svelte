@@ -1,15 +1,9 @@
-<section class="section">
-    <div class="page-wrap">
-        <h1>Coming Soon</h1>
-    </div>
-</section>
-
-<style lang="sass">
-    .page-wrap {
-        margin: 8rem 0;
-    }
-
-    h1 {
-        text-align: center;
-    }
-</style>
+<div class="min-h-screen">
+    <section class="layout">
+        <div class="center py-20">
+            <h1 class="text-3xl">
+                Coming Soon
+            </h1>
+        </div>
+    </section>
+</div>
