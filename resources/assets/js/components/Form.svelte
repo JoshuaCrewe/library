@@ -10,7 +10,6 @@
 
     export let params = {}
     page.subscribe(page => {
-        // If not from pagination do nothing
         getItems();
     });
 
@@ -28,7 +27,7 @@
             });
             if ($items.results.length == 0) {
                 getItems(() => {
-                    push(`/search/${$items.currentSearch}`)
+                    push(`/search/${$items.currentSearch}?page=${$page}`)
                 });
 
             }
