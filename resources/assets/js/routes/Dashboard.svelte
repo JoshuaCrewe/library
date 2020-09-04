@@ -1,5 +1,9 @@
-<section class="section">
-    <div class="page-wrap">
-        <h1>Coming Soon</h1>
-    </div>
-</section>
+<div class="min-h-screen">
+    <section class="layout">
+        <div class="center py-20">
+            <h1 class="text-3xl">
+                Coming Soon
+            </h1>
+        </div>
+    </section>
+</div>

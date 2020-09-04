@@ -1,7 +1,5 @@
 <script>
     export let item;
-
-    console.log(item);
 </script>
 <a href="#/item/{item.id}" class="flex hover:bg-gray-100 py-4 px-2">
     <div class="w-1/3 pr-4">

@@ -1,15 +1,19 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onMount, createEventDispatcher } from 'svelte';
     import { fade } from 'svelte/transition';
     import { push } from 'svelte-spa-router'
     import items from './../stores';
+
+
+	const dispatch = createEventDispatcher();
 
     export let params = {}
 
     let loading = false;
 
     let searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
-    console.log($items.page);
+    /* console.log($items.page); */
+    console.log(searchValue);
 
     onMount(async () => {
         if (params.term) {
@@ -25,6 +29,7 @@
 
     async function getItems() {
         loading = true;
+        dispatch('loading', true);
 
         let url = '/api/search/' + $items.currentSearch + '?page=1';
         const response = await fetch(url);
@@ -35,8 +40,11 @@
             return items;
         })
 
+        searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
+
 
         loading = false;
+        dispatch('loading', false);
         push(`/search/${$items.currentSearch}`)
     }
 
@@ -60,8 +68,8 @@
 
 <form on:submit|preventDefault={handleSubmit} class="relative flex justify-center pt-20 pb-10 px-4 md:px-8 w-full">
     <div class="relative w-full md:w-1/2">
-        <input type="search" id="search" bind:value={searchValue} class="appearance-none rounded-lg bg-gray-200 pl-10 pr-4 py-2 delta w-full" placeholder="Search">
-        <button class="absolute left-0 top-0 my-3 ml-2">
+        <input type="search" id="search" bind:value={searchValue} class="appearance-none rounded-lg border-gray-200 bg-gray-200 pl-10 pr-4 py-2 w-full placeholder:text-sm border-solid focus:border-gray-300 focus:shadow-sm border-2 focus:outline-none" placeholder="Search">
+        <button class="absolute left-0 top-0 my-2 ml-2">
             {#if loading }
                 <svg class="animate-spin inline" width="25" height="24">
                     <use xlink:href="#icon--loading"></use>
