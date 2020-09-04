@@ -5,17 +5,34 @@
     import Item from './../components/Item.svelte'
     import FakeItem from './../components/FakeItem.svelte'
 
-    import {items} from './../stores';
+    import {items, page} from './../stores';
 
     let results = $items.results;
     let loading = false;
 
+    let atStart = $page <= 1;
+    let atEnd = $items.limit == $page;
+
     export let params = {}
+    function handlePreviousPage() {
+        page.update(page => page - 1 )
+    }
+
+    function handleNextPage() {
+        page.update(page => page + 1 )
+    }
+
+    function handlePagination() {
+        if (!loading) {
+            atStart = $page <= 1;
+            atEnd = $items.limit == $page;
+        }
+    }
 </script>
 <div class="min-h-screen">
     
     <div class="" class:no-results={$items.results.length === 0}>
-        <Form {params} on:loading={(event) => {loading = event.detail; console.log(event);}}/>
+        <Form {params} on:loading={(event) => {loading = event.detail;} }/>
 
         {#if $items.results.length === 0 }
             <div class="layout w-full md:w-3/4 center m-auto mb-4">
@@ -51,13 +68,13 @@
             </ul>
 
             <nav class="flex justify-between mt-4">
-                <button class="button">
+                <button disabled={atStart} class="button" on:click={handlePreviousPage}>
                     <svg class="" width="18" height="18">
                         <use xlink:href="#icon--chevron-left"></use>
                     </svg>
                     Previous
                 </button>
-                <button class=" border border-gray-400 rounded-md px-3 py-1 flex items-center ">
+                <button disabled={atEnd} class="border border-gray-400 rounded-md px-3 py-1 flex items-center disabled:bg-white disabled:opacity-50 disabled:cursor-default " on:click={handleNextPage}>
                     Next
                     <svg class="ml-2 -mr-2 transform rotate-180" width="18" height="18">
                         <use xlink:href="#icon--chevron-left"></use>

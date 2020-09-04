@@ -9,3 +9,10 @@
 .button:hover {
     @apply bg-gray-200;
 }
+
+.button[disabled] {
+    @apply opacity-50 cursor-default;
+}
+.button:hover[disabled] {
+    @apply bg-white;
+}

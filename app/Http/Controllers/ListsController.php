@@ -9,7 +9,7 @@ class ListsController
 {
     public function index()
     {
-        Lists::all();
+        return Lists::all();
     }
 
     public function show(Request $request, $name = null)
