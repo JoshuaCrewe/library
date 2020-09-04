@@ -1,7 +1,12 @@
 module.exports = {
-  theme: {
-    extend: {},
-  },
-  variants: {},
-  plugins: [],
-}
+    purge: [
+        "./resources/assets/js/**/*.svelte",
+        "./resources/assets/js/**/*.js",
+        "./resources/assets/views/**/*.php"
+    ],
+    theme: {
+        extend: {}
+    },
+    variants: {},
+    plugins: []
+};
