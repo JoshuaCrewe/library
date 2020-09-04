@@ -10,34 +10,46 @@
 
     export let params = {}
 </script>
-<div class="form-wrap" class:no-results={$items.results.length === 0}>
-    <Form {params}/>
+<div class="min-h-screen">
+    
+    <div class="" class:no-results={$items.results.length === 0}>
+        <Form {params}/>
 
-    {#if $items.results.length === 0 }
-        <div class="introduction">
-            <h2 class="gamma subtitle">Search for books, music, films and more.</h2>
-            <p class="hide">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+        {#if $items.results.length === 0 }
+            <div class="layout w-full md:w-3/4 center m-auto mb-4">
+                <h2 class="gamma mb-4">Search for books, music, films and more.</h2>
+                <p class="hide">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </div>
+        {/if}
+    </div>
+
+    {#if $items.results.length !== 0}
+        <div class="layout w-full md:w-3/4 m-auto max-w-3xl">
+            <ul class="flex flex-wrap flex-col">
+                {#each $items.results as item}
+                    <li class="flex-1">
+                        <Item {item}/>
+                    </li>
+                {/each}
+            </ul>
+
+            <nav class="flex justify-between mt-4">
+                <button class="button">
+                    <svg class="" width="18" height="18">
+                        <use xlink:href="#icon--chevron-left"></use>
+                    </svg>
+                    Previous
+                </button>
+                <button class=" border border-gray-400 rounded-md px-3 py-1 flex items-center ">
+                    Next
+                    <svg class="ml-2 -mr-2 transform rotate-180" width="18" height="18">
+                        <use xlink:href="#icon--chevron-left"></use>
+                    </svg>
+                </button>
+            </nav>
         </div>
     {/if}
 </div>
-
-{#if $items.results.length !== 0}
-    <div class="items">
-        {#each $items.results as item}
-            <Item {item}/>
-        {/each}
-    </div>
-
-    <div class="pagination" >
-        <button>
-            Next
-        </button>
-        <button>
-            Previous
-        </button>
-        
-    </div>
-{/if}

@@ -1,0 +1,9 @@
+.layout {
+    @apply px-4 py-4;
+}
+
+@screen md {
+    .layout {
+        @apply px-8;
+    }
+}
