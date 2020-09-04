@@ -1,5 +1,5 @@
 <footer class="layout py-4 bg-gray-100 text-gray-900">
-    <ul class="flex flex-col items-end justify-center text-base">
+    <ul class="flex flex-col items-end justify-center text-base w-full max-w-screen-lg m-auto">
         <li>
             <a href="https://github.com/JoshuaCrewe/library" class="py-2 inline-block hover:text-gray-500 focus:text-gray-500">
                 Github
