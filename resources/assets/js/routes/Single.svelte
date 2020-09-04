@@ -39,7 +39,7 @@
     </div>
 
     
-    <div class="layout flex flex-col lg:w-3/4 m-auto">
+    <div class="layout flex flex-col lg:w-3/4 m-auto max-w-screen-md">
         {#if loading }
             <!-- image -->
             <div class="bg-gray-200 m-auto mb-4 " style="width:200px; height:304px;"> </div>
@@ -111,7 +111,7 @@
 
     </div>
 
-    <div class="layout lg:w-3/4 m-auto">
+    <div class="layout lg:w-3/4 m-auto max-w-screen-md">
         {#if $items.currentSearch !== ''}
             <button class="button" on:click={returnToResults}>
                 <svg class="" width="18" height="18">
