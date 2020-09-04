@@ -30,20 +30,20 @@
 
     {#if $items.results.length !== 0}
         <div class="layout w-full md:w-3/4 m-auto max-w-3xl">
-            <ul class="flex flex-wrap flex-col">
+            <ul class="">
                 {#if loading}
-                    <li class="flex-1">
+                    <li class="">
                         <FakeItem/>
                     </li>
-                    <li class="flex-1">
+                    <li class="">
                         <FakeItem/>
                     </li>
-                    <li class="flex-1">
+                    <li class="">
                         <FakeItem/>
                     </li>
                 {:else}
                     {#each $items.results as item}
-                        <li class="flex-1">
+                        <li class="">
                             <Item {item}/>
                         </li>
                     {/each}
