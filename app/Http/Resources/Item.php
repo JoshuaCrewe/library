@@ -69,7 +69,12 @@ class Item
             $books[] = $item;
         });
 
+        $total = $crawler->filter('.searchControl #searchPage')->text('');
+
+        preg_match("/of (\d+)/",$total,$m);
+
         return response()->json([
+            'total' => (int)array_pop($m),
             'results'=> $books
         ]);
     }

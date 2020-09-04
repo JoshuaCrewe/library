@@ -34,7 +34,7 @@ class Lists
         $result = [];
 
         // We are looking for lists
-        $crawler = $client->request('GET', env('API_URL') . '/lists');
+        $crawler = $client->request('GET', env('API_URL') . '/lists/' . $list);
 
         $items = [];
 

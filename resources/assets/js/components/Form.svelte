@@ -2,18 +2,22 @@
     import { onMount, createEventDispatcher } from 'svelte';
     import { fade } from 'svelte/transition';
     import { push } from 'svelte-spa-router'
-    import items from './../stores';
 
+    import {items, page} from './../stores';
 
 	const dispatch = createEventDispatcher();
 
+
     export let params = {}
+    page.subscribe(page => {
+        getItems();
+    });
 
     let loading = false;
 
     let searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
     /* console.log($items.page); */
-    console.log(searchValue);
+    /* console.log(searchValue); */
 
     onMount(async () => {
         if (params.term) {
@@ -22,40 +26,55 @@
                 return items;
             });
             if ($items.results.length == 0) {
-                getItems();
+                getItems(() => {
+                    push(`/search/${$items.currentSearch}?page=${$page}`)
+                });
+
             }
         }
     })
 
-    async function getItems() {
+    async function getItems(callback) {
         loading = true;
         dispatch('loading', true);
 
-        let url = '/api/search/' + $items.currentSearch + '?page=1';
+        if ($items.currentSearch == '') {
+            return true;
+        }
+
+        let url = '/api/search/' + $items.currentSearch + '?page=' + $page;
+
         const response = await fetch(url);
         const json = await response.json();
 
         items.update( items => {
             items.results = json.results;
+            items.total = json.total;
+            items.limit = Math.ceil(json.total / 10);
             return items;
         })
 
         searchValue = decodeURI($items.currentSearch.replace(/\+/g," ")); 
 
-
         loading = false;
         dispatch('loading', false);
-        push(`/search/${$items.currentSearch}`)
+
+        if (typeof callback == 'function') {
+            await callback()
+        }
     }
 
     const handleSubmit = (form) => {
+        page.update(() =>1);
         const { value } = form.srcElement.elements.search;
         if (value !== '') {
             items.update(items => {
                 items.currentSearch = value.replace(/ /g, "+");
                 return items;
             })
-            getItems();
+            getItems(() => {
+                push(`/search/${$items.currentSearch}`)
+            });
         } else {
             items.update(items => {
                 items.results = [];

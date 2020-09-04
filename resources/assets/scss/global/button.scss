@@ -1,11 +1,14 @@
 .button {
     @apply border border-gray-400 rounded-md px-3 py-1 flex items-center;
-
-    svg {
-        @apply -ml-2 mr-2;
-    }
 }
 
 .button:hover {
     @apply bg-gray-200;
+}
+
+.button[disabled] {
+    @apply opacity-50 cursor-default;
+}
+.button:hover[disabled] {
+    @apply bg-white;
 }
