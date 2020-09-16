@@ -6,7 +6,7 @@
             </a>
         </li>
         <li>
-            <a href="https://capitadiscovery.co.uk/cornwall/account" class="hover:text-gray-500 focus:text-gray-500">
+            <a href="https://capitadiscovery.co.uk/cornwall/account" class="py-2 inline-block hover:text-gray-500 focus:text-gray-500">
                 Falmouth Library Services
             </a>
         </li>
