@@ -33,8 +33,16 @@ class Lists
 
         $result = [];
 
+        $url = env('API_URL') . '/lists';
+
+        if ($list) {
+            $url .= '/' . $list;
+        }
+
         // We are looking for lists
-        $crawler = $client->request('GET', env('API_URL') . '/lists/' . $list);
+        $crawler = $client->request('GET', $url , [
+            'allow_redirects' => true
+        ]);
 
         $items = [];
 

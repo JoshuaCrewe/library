@@ -28,12 +28,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     /*
     * Routes for lists
     */
-    $router->get('lists[/{name}]', 'ListsController@show');
+    $router->get('/lists[/{name}]', 'ListsController@show');
 
     /*
     * Routes for the Dashbaord
     */
     $router->get('/dashboard', 'DashboardController@index');
+
+    $router->get('/barcode/{barcode}', 'DashboardController@barcode');
 });
 
 $router->get('/{route:.*}/', function ()  {
