@@ -1,35 +1,34 @@
 <script>
     import {onMount} from 'svelte';
-
-    import {push} from 'svelte-spa-router'
     let loading = true;
     let json = {};
-    async function getDashboard() {
+    let data = {};
+    async function getItems() {
         loading = true;
 
-        let url = '/api/dashboard/';
+        let url = '/api/lists/';
         const response = await fetch(url);
         json = await response.json();
+        data = json.results;
 
-        if (!json.results.length) {
-            push(`/login`)
-        }
-
+        console.log(json);
         loading = false;
     }
-    
+
     onMount(() => {
-        getDashboard()
+        getItems()
     })
 
 </script>
 <div class="min-h-screen">
     <section class="layout">
         <div class="center py-20">
-            {#if !loading}
-                <h1 class="text-3xl">
-                    {json.results[0]}
-                </h1>
+            {#if ! loading}
+                {#each json.results.items as item}
+                    <h2>
+                        {item.title}
+                    </h2>
+                {/each}
             {/if}
         </div>
     </section>

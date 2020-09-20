@@ -10,8 +10,13 @@
 
         <ul class="flex justify-center items-center">
             <li class="">
-                <a href="/dashboard" use:link class="hover:text-gray-500 focus:text-gray-500">
+                <a href="/dashboard" use:link class="hover:text-gray-500 focus:text-gray-500 pr-4">
                     Dashboard
+                </a>
+            </li>
+            <li class="">
+                <a href="/lists" use:link class="hover:text-gray-500 focus:text-gray-500">
+                    Lists
                 </a>
             </li>
         </ul>

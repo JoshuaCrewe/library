@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 use Goutte\Client;
 use Symfony\Component\BrowserKit\CookieJar;
@@ -21,21 +22,23 @@ class Login
      */
     public function handle($request, Closure $next)
     {
-        $cookie = Self::getCookie($request);
+        if (isset($_COOKIE['barcode'])) {
+            $cookie = Self::getCookie($request);
+        }
 
         return $next($request);
     }
 
     private function authenticate($request)
     {
-        // @TODO get the barcode from cookie / local storage
-        // For now we will get the barcode from secret store
-        $barcode = env('BARCODE');
+        $secret = $_COOKIE['barcode'];
+
+        $barcode = Crypt::decrypt($secret);
 
         if (!$barcode) {
             // We don't have all we need to login
             // We should redirect to the login screen with a notice?
-            // return redirect('/');
+            return false;
         }
 
         // Set up a new client and fetch the login page
@@ -58,7 +61,7 @@ class Login
         // If we do get one from the cookie jar
         if (isset($values['session'])) {
             // Then save it on this end
-            setcookie('session', $values['session'], 0, "/");
+            setcookie('session', $values['session'],  time() + (60*60),  "/");
             // This is now the cookie we want
             $cookie = $values['session'];
         }
@@ -78,6 +81,4 @@ class Login
         };
         return $cookie;
     }
-
 }
-
