@@ -99,7 +99,6 @@
                         ISBN : {data.ISBN}
                     </p>
                 {/if}
-
             </div>
         </div>
 
@@ -110,6 +109,8 @@
         {/if}
 
     </div>
+
+    <div class="jsHidden"> </div>
 
     <div class="layout lg:w-3/4 m-auto max-w-screen-md">
         {#if $items.currentSearch !== ''}
