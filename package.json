@@ -6,8 +6,8 @@
     "author": "Joshua Crewe <joshua@venncreative.co.uk>",
     "license": "MIT",
     "engines": {
-        "node": "12.16.2",
-        "yarn": "1.22.5"
+        "node": "15.0.1",
+        "yarn": "1.22.10"
     },
     "scripts": {
         "dev": "npm run development",

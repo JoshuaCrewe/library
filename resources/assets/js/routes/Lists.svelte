@@ -1,12 +1,15 @@
 <script>
     import {onMount} from 'svelte';
+
+    import {location} from 'svelte-spa-router';
+
     let loading = true;
     let json = {};
     let data = {};
     async function getItems() {
         loading = true;
 
-        let url = '/api/lists/';
+        let url = window.location.origin + '/api/lists/';
         const response = await fetch(url);
         json = await response.json();
         data = json.results;

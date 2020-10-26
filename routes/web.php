@@ -10,7 +10,6 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     /*
