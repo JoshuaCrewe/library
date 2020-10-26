@@ -4,10 +4,11 @@
     let error = false;
     async function handleLogin(e) {
 
-        let url = '/api/barcode/' + barcode;
+        let url = window.location.origin + '/api/barcode/' + barcode;
 
         const response = await fetch(url);
         const json = await response.json();
+        console.log(json);
         if (!json.success) {
             error = true;
         } else {
