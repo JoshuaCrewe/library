@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Resources;
 
+use Log;
+
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -65,4 +67,37 @@ class Lists
             'results'=> $result
         ]);
     }
+
+    static function addItem(Request $request, $id)
+    {
+        if (!isset($_COOKIE['session'])) {
+            $cookie = $request->get('sessionCookie');
+        } else {
+            $cookie = $_COOKIE['session'];
+        }
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+
+        $result = [];
+
+        $url = getenv('API_URL') . '/lists/new?bib_id=' . $id;
+
+        $crawler = $client->request('GET', $url , [
+            'allow_redirects' => true
+        ]);
+
+        $form = $crawler->selectButton('Save')->form();
+
+        $crawler = $client->submit($form, ['bib_id' => $id , 'action' => 'add']);
+
+        return response()->json([
+            'id' => $id,
+            'result' => true
+        ]);
+    }
+
 }

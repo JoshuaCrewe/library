@@ -13,4 +13,9 @@
             {item.author}
         </h3>
     </div>
+    <div class="flex items-center hidden">
+        <button class="button bg-green-100 border-green-500 mx-auto">
+            Reserve
+        </button>
+    </div>
 </a>

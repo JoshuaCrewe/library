@@ -29,6 +29,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     */
     $router->get('/lists[/{name}]', 'ListsController@show');
 
+    $router->get('/list/{id}[/{action}]', 'ListsController@update');
+
     /*
     * Routes for the Dashbaord
     */
