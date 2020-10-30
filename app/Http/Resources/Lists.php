@@ -52,7 +52,7 @@ class Lists
             $data = explode( '/', $node->filter('.image img')->attr('src'));
 
             $item['id'] = $data[1];
-            $item['image'] = env('API_RUL') . '/items/' . $data[1] . '/image-medium';
+            $item['image'] = getenv('API_URL') . '/items/' . $data[1] . '/image-medium';
             $item['title'] = trim($node->filter('.summary h3')->text(''));
             $item['author'] = trim($node->filter('.summary .author .author')->text(''));
             $items[] = $item;

@@ -3,6 +3,8 @@
 
     import {location} from 'svelte-spa-router';
 
+    import ListItem from '../components/ListItem.svelte';
+
     let loading = true;
     let json = {};
     let data = {};
@@ -24,15 +26,15 @@
 
 </script>
 <div class="min-h-screen">
-    <section class="layout">
-        <div class="center py-20">
+    <section class="layout w-full md:w-3/4 m-auto max-w-3xl" id="list">
+        <ul class="flex flex-wrap">
             {#if ! loading}
                 {#each json.results.items as item}
-                    <h2>
-                        {item.title}
-                    </h2>
+                    <li class="w-full sm:w-1/2 lg:w-1/3">
+                        <ListItem {item} />
+                    </li>
                 {/each}
             {/if}
-        </div>
+        </ul>
     </section>
 </div>
