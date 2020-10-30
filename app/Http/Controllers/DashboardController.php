@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Log;
+
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -50,7 +52,7 @@ class DashboardController
         // Use the barcode to log in.
         // If successful then save the encrypted version to the browser
         // Redirect user to the dashboard ?
-        $cookie = setcookie('barcode', $secret, false, '/');
+        $cookie = setcookie('barcode', $secret, false, '/', '', $_SERVER['REQUEST_SCHEME'] === 'https', TRUE );
 
         $client = new Client();
         $crawler = $client->request('GET', env('API_URL') . '/login');
@@ -74,8 +76,8 @@ class DashboardController
             'success' => true,
             'cookies' => $cookie,
             'encrypted'=> Crypt::encrypt($barcode),
-            'secret'=> $secret,
-            'decrypted'=> Crypt::decrypt($secret),
+            // 'secret'=> $secret,
+            // 'decrypted'=> Crypt::decrypt($secret),
         ]);
     }
 
