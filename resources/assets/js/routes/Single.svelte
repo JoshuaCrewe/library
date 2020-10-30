@@ -7,8 +7,12 @@
     export let params = {}
     export let data = {};
     let loading = false;
+
     let saving = false;
     let saved = false;
+
+    let reserving = false;
+    let reserved = false;
 
     async function getItem() {
         loading = true;
@@ -42,6 +46,19 @@
         if (json.result) {
             saving = false;
             saved = true;
+        }
+    }
+
+    async function reserveItem() {
+        reserving = true;
+        let url = '/api/dashboard/' + params.id;
+        const response = await fetch(url, {
+            method : 'POST'
+        });
+        const json = await response.json();
+        if (json.result) {
+            reserving = false;
+            reserved = true;
         }
     }
 
@@ -124,6 +141,15 @@
         {/if}
 
         <div class="mt-4">
+            <button class="button" on:click={reserveItem}>
+                {#if reserving}
+                    Reserving ...
+                {:else if reserved}
+                    Reserved!
+                {:else}
+                    Reserve
+                {/if}
+            </button>
             <button class="button { saved ? 'bg-green-100' : ''}" on:click={addToList}>
                 {#if saving}
                     Saving ...

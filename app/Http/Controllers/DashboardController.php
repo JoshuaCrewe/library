@@ -81,4 +81,37 @@ class DashboardController
         ]);
     }
 
+    public function reserve($id)
+    {
+        if (!isset($_COOKIE['session'])) {
+            $cookie = $request->get('sessionCookie');
+        } else {
+            $cookie = $_COOKIE['session'];
+        }
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+
+        $result = [];
+
+        $url = env('API_URL') . '/items/' . $id;
+
+        $crawler = $client->request('GET', $url , [
+            'allow_redirects' => true
+        ]);
+
+        $form = $crawler->selectButton('Reserve')->form();
+
+        $crawler = $client->submit($form);
+
+        return response()->json([
+            'id' => $id,
+            'result' => true
+        ]);
+
+    }
+
 }
