@@ -1,5 +1,21 @@
 <script>
     export let item;
+    let saving = false;
+    let saved = false;
+
+    async function addToList() {
+        saving = true;
+        let url = '/api/list/' + item.id + '/add/';
+        const response = await fetch(url, {
+            method : 'POST'
+        });
+        const json = await response.json();
+        if (json.result) {
+            saving = false;
+            saved = true;
+        }
+    }
+
 </script>
 <a href="#/item/{item.id}" class="flex hover:bg-gray-100 py-4 px-2">
     <div class="w-1/3 pr-4">
@@ -20,3 +36,12 @@
         </p>
     </div>
 </a>
+<button class="button { saved ? 'bg-green-100' : ''}" on:click={addToList}>
+    {#if saving}
+        Saving ...
+    {:else if saved}
+        Saved!
+    {:else}
+        Add to List
+    {/if}
+</button>

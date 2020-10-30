@@ -35,7 +35,9 @@
     async function addToList() {
         saving = true;
         let url = '/api/list/' + params.id + '/add/';
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            method : 'POST'
+        });
         const json = await response.json();
         if (json.result) {
             saving = false;

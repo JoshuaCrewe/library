@@ -4,6 +4,9 @@
     import {location} from 'svelte-spa-router';
 
     import ListItem from '../components/ListItem.svelte';
+    import Form from './../components/Form.svelte';
+
+    export let params = {}
 
     let loading = true;
     let json = {};
@@ -16,7 +19,6 @@
         json = await response.json();
         data = json.results;
 
-        console.log(json);
         loading = false;
     }
 
@@ -26,6 +28,9 @@
 
 </script>
 <div class="min-h-screen">
+    <div class="">
+        <Form {params} />
+    </div>
     <section class="layout w-full md:w-3/4 m-auto max-w-3xl" id="list">
         <ul class="flex flex-wrap">
             {#if ! loading}
