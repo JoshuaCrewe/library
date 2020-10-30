@@ -20,7 +20,7 @@
 <div class="min-h-screen">
     <section class="layout">
         <div class="center py-20">
-            <form class:border-red-500={error} class="border-solid border-2 border-transparent p-4 w-1/2 mx-auto my-0" action="" on:submit|preventDefault={handleLogin}>
+            <form class:border-red-500={error} class="border-solid border-2 border-transparent p-4 w-full md:w-1/2 mx-auto my-0" action="" on:submit|preventDefault={handleLogin}>
                 <label class="" for="barcode">
                     <h2 class="text-xl mb-4">
                         Enter your library card number
