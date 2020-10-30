@@ -7,6 +7,8 @@
     export let params = {}
     export let data = {};
     let loading = false;
+    let saving = false;
+    let saved = false;
 
     async function getItem() {
         loading = true;
@@ -27,6 +29,19 @@
             push(`/search/${$items.currentSearch}`)
         } else {
             push('/');
+        }
+    }
+
+    async function addToList() {
+        saving = true;
+        let url = '/api/list/' + params.id + '/add/';
+        const response = await fetch(url, {
+            method : 'POST'
+        });
+        const json = await response.json();
+        if (json.result) {
+            saving = false;
+            saved = true;
         }
     }
 
@@ -107,6 +122,18 @@
                 {@html data.status}
             </ul>
         {/if}
+
+        <div class="mt-4">
+            <button class="button { saved ? 'bg-green-100' : ''}" on:click={addToList}>
+                {#if saving}
+                    Saving ...
+                {:else if saved}
+                    Saved!
+                {:else}
+                    Add to List
+                {/if}
+            </button>
+        </div>
 
     </div>
 
