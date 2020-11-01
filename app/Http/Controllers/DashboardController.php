@@ -52,7 +52,14 @@ class DashboardController
         // Use the barcode to log in.
         // If successful then save the encrypted version to the browser
         // Redirect user to the dashboard ?
-        $cookie = setcookie('barcode', $secret, false, '/', '', $_SERVER['REQUEST_SCHEME'] === 'https', TRUE );
+        $cookie = setcookie('barcode', $secret, [
+            'expires' => false,
+            'path' => '/',
+            'domain' => '',
+            'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
+            'httponly' => true,
+            'samesite' => 'lax'
+        ]);
 
         $client = new Client();
         $crawler = $client->request('GET', env('API_URL') . '/login');
@@ -79,6 +86,39 @@ class DashboardController
             // 'secret'=> $secret,
             // 'decrypted'=> Crypt::decrypt($secret),
         ]);
+    }
+
+    public function reserve($id)
+    {
+        if (!isset($_COOKIE['session'])) {
+            $cookie = $request->get('sessionCookie');
+        } else {
+            $cookie = $_COOKIE['session'];
+        }
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+
+        $result = [];
+
+        $url = env('API_URL') . '/items/' . $id;
+
+        $crawler = $client->request('GET', $url , [
+            'allow_redirects' => true
+        ]);
+
+        $form = $crawler->selectButton('Reserve')->form();
+
+        $crawler = $client->submit($form);
+
+        return response()->json([
+            'id' => $id,
+            'result' => true
+        ]);
+
     }
 
 }

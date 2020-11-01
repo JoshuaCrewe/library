@@ -5,7 +5,6 @@
     async function handleLogin(e) {
 
         let url = window.location.origin + '/api/barcode/' + barcode;
-        console.log(url);
 
         const response = await fetch(url);
         const json = await response.json();
