@@ -1,30 +1,17 @@
 <script>
     export let item;
-    let saving = false;
-    let saved = false;
-
-    async function addToList() {
-        saving = true;
-        let url = '/api/list/' + item.id + '/add/';
-        const response = await fetch(url, {
-            method : 'POST'
-        });
-        const json = await response.json();
-        if (json.result) {
-            saving = false;
-            saved = true;
-        }
-    }
-
+    import Actions from './Actions';
 </script>
-<a href="#/item/{item.id}" class="flex hover:bg-gray-100 py-4 px-2">
+<div class="flex hover:bg-gray-100 py-4 px-2 relative">
     <div class="w-1/3 pr-4">
         <img src="{item.image}" alt="{item.title}" class="mb-0">
     </div>
     <div class="w-2/3">
-        <h2 class="text-base mb-2 leading-6 md:text-xl lg:leading-8 lg:text-2xl md:mb-4">
-            {item.title}
-        </h2>
+        <a class="card-link" href="#/item/{item.id}">
+            <h2 class="text-base mb-2 leading-6 md:text-xl lg:leading-8 lg:text-2xl md:mb-4">
+                {item.title}
+            </h2>
+        </a>
         <h3 class="text-base mb-2 leading-4 body-font md:text-lg md:mb-4">
             {item.author}
         </h3>
@@ -35,13 +22,5 @@
             {item.summary}
         </p>
     </div>
-</a>
-<button class="button { saved ? 'bg-green-100' : ''}" on:click={addToList}>
-    {#if saving}
-        Saving ...
-    {:else if saved}
-        Saved!
-    {:else}
-        Add to List
-    {/if}
-</button>
+    <Actions {item} />
+</div>
