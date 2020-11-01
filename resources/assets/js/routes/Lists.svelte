@@ -35,7 +35,7 @@
         <ul class="flex flex-wrap">
             {#if ! loading}
                 {#each json.results.items as item}
-                    <li class="w-full sm:w-1/2 lg:w-1/3">
+                    <li class="w-1/2 lg:w-1/3">
                         <ListItem {item} />
                     </li>
                 {/each}

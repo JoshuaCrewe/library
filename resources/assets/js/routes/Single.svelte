@@ -1,11 +1,14 @@
 <script>
     import {link, push} from 'svelte-spa-router'
-    import Form from './../components/Form.svelte';
+
+    import Form from './../components/Form';
+    import Actions from './../components/Actions';
+
     import {items} from './../stores';
     import {onMount} from 'svelte';
 
     export let params = {}
-    export let data = {};
+    export let item = {};
     let loading = false;
 
     let saving = false;
@@ -20,7 +23,7 @@
         let url = '/api/items/' + params.id;
         const response = await fetch(url);
         const json = await response.json();
-        data = json.results;
+        item = json.results;
         loading = false;
     }
 
@@ -35,34 +38,6 @@
             push('/');
         }
     }
-
-    async function addToList() {
-        saving = true;
-        let url = '/api/list/' + params.id + '/add/';
-        const response = await fetch(url, {
-            method : 'POST'
-        });
-        const json = await response.json();
-        if (json.result) {
-            saving = false;
-            saved = true;
-        }
-    }
-
-    async function reserveItem() {
-        reserving = true;
-        let url = '/api/dashboard/' + params.id;
-        const response = await fetch(url, {
-            method : 'POST'
-        });
-        const json = await response.json();
-        if (json.result) {
-            reserving = false;
-            reserved = true;
-        }
-    }
-
-
 </script>
 
 <div class="min-h-screen">
@@ -88,18 +63,18 @@
             </ul>
         {/if}
         <div class="mb-4">
-            <img class="m-auto" src="{data.image}" alt="{data.title}" height="304" width="200">
+            <img class="m-auto" src="{item.image}" alt="{item.title}" height="304" width="200">
         </div>
 
         <header class="center">
-            {#if data.title}
+            {#if item.title}
                 <h1 class="text-4xl">
-                    {data.title}
+                    {item.title}
                 </h1>
             {/if}
-            {#if data.author}
+            {#if item.author}
                 <h3 class="text-2xl body-font mb-4">
-                    {data.author}
+                    {item.author}
                 </h3>
             {/if}
         </header>
@@ -107,9 +82,9 @@
         <div class="">
             
             <div class="">
-                {#if data.genres}
+                {#if item.genres}
                     <ul class="flex justify-center items-center mb-4">
-                        {#each data.genres as genre, i}
+                        {#each item.genres as genre, i}
                             <li class="bg-blue-200 rounded px-2 mr-2 text-xs">
                                 {genre}
                             </li>
@@ -119,46 +94,29 @@
             </div>
 
             <div class="mb-2">
-                {#if data.summary}
+                {#if item.summary}
                     <p class="item-summary">
-                        {data.summary}
+                        {item.summary}
                     </p>
                 {/if}
 
-                {#if data.ISBN}
+                {#if item.ISBN}
                     <h3>Details</h3>
                     <p>
-                        ISBN : {data.ISBN}
+                        ISBN : {item.ISBN}
                     </p>
                 {/if}
             </div>
         </div>
 
-        {#if data.status}
+        {#if item.status}
             <ul class="markup">
-                {@html data.status}
+                {@html item.status}
             </ul>
         {/if}
 
-        <div class="mt-4">
-            <button class="button" on:click={reserveItem}>
-                {#if reserving}
-                    Reserving ...
-                {:else if reserved}
-                    Reserved!
-                {:else}
-                    Reserve
-                {/if}
-            </button>
-            <button class="button { saved ? 'bg-green-100' : ''}" on:click={addToList}>
-                {#if saving}
-                    Saving ...
-                {:else if saved}
-                    Saved!
-                {:else}
-                    Add to List
-                {/if}
-            </button>
+        <div class="mt-4 h-8 relative">
+            <Actions {item} />
         </div>
 
     </div>
