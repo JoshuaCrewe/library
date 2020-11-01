@@ -52,7 +52,14 @@ class DashboardController
         // Use the barcode to log in.
         // If successful then save the encrypted version to the browser
         // Redirect user to the dashboard ?
-        $cookie = setcookie('barcode', $secret, false, '/', '', $_SERVER['REQUEST_SCHEME'] === 'https', TRUE );
+        $cookie = setcookie('barcode', $secret, [
+            'expires' => false,
+            'path' => '/',
+            'domain' => '',
+            'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
+            'httponly' => true,
+            'samesite' => 'lax'
+        ]);
 
         $client = new Client();
         $crawler = $client->request('GET', env('API_URL') . '/login');

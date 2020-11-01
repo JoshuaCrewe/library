@@ -61,7 +61,14 @@ class Login
         // If we do get one from the cookie jar
         if (isset($values['session'])) {
             // Then save it on this end
-            setcookie('session', $values['session'],  time() + (60*60),  "/");
+            setcookie('session', $values['session'], [
+                'expires' => time() + (60*60),
+                'path' => '/',
+                'domain' => '',
+                'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
+                'httponly' => true,
+                'samesite' => 'lax'
+            ]);
             // This is now the cookie we want
             $cookie = $values['session'];
         }
