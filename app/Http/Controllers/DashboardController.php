@@ -55,7 +55,7 @@ class DashboardController
         $cookie = setcookie('barcode', $secret, [
             'expires' => false,
             'path' => '/',
-            'domain' => '',
+            'domain' => env('APP_DOMAIN'),
             'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
             'httponly' => true,
             'samesite' => 'lax'
