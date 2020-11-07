@@ -11,8 +11,6 @@
 |
 */
 $router->group(['prefix' => 'api'], function () use ($router) {
-    header('Origin: ' .  env('APP_URL'));
-
     /*
     * Routes for Items
     */

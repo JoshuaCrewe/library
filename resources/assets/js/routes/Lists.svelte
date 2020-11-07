@@ -14,7 +14,7 @@
     async function getItems() {
         loading = true;
 
-        let url = window.location.origin + '/api/lists/';
+        let url = window.location.origin + '/api/lists';
         const response = await fetch(url);
         json = await response.json();
         data = json.results;

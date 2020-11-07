@@ -19,7 +19,7 @@
 
     async function removeFromList() {
         removing = true;
-        let url = '/api/list/' + item.id + '/remove/';
+        let url = '/api/list/' + item.id + '/remove';
         const response = await fetch(url, {
             method : 'POST'
         });
@@ -32,7 +32,7 @@
 
     async function addToList() {
         saving = true;
-        let url = '/api/list/' + item.id + '/add/';
+        let url = '/api/list/' + item.id + '/add';
         const response = await fetch(url, {
             method : 'POST'
         });

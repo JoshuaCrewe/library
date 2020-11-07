@@ -7,7 +7,7 @@
     async function getDashboard() {
         loading = true;
 
-        let url = window.location.origin + '/api/dashboard/';
+        let url = window.location.origin + '/api/dashboard';
         console.log(url);
         const response = await fetch(url);
         json = await response.json();
