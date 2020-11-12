@@ -53,7 +53,7 @@ class DashboardController
         // If successful then save the encrypted version to the browser
         // Redirect user to the dashboard ?
         $cookie = setcookie('barcode', $secret, [
-            'expires' => false,
+            'expires' => time()+60*60*24*60,
             'path' => '/',
             'domain' => env('APP_DOMAIN'),
             'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',

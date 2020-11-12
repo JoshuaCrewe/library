@@ -62,8 +62,8 @@ class Login
         if (isset($values['session'])) {
             // Then save it on this end
             setcookie('session', $values['session'], [
-                // We are setting a short time on the session (5 minutes)
-                'expires' => time() + (60*5),
+                // We are setting a short time on the session (15 minutes)
+                'expires' => time() + (60*15),
                 'path' => '/',
                 'domain' => env('APP_DOMAIN'),
                 'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
