@@ -5,37 +5,33 @@
     "repository": "git@github.com:JoshuaCrewe/library.git",
     "author": "Joshua Crewe <joshua@venncreative.co.uk>",
     "license": "MIT",
-    "engines": {
-        "node": "15.0.1",
-        "yarn": "1.22.10"
-    },
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "build": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "production": "mix --production"
     },
     "dependencies": {
-        "laravel-mix": "^4.1.2",
-        "laravel-mix-purgecss": "^5.0.0",
-        "laravel-mix-svelte": "^0.1.3",
+        "@tailwindcss/jit": "^0.1.17",
+        "laravel-mix": "^6.0.13",
+        "laravel-mix-purgecss": "^6.0.0",
+        "laravel-mix-svelte": "^0.4.0",
         "laravel-mix-tailwind": "^0.1.1",
-        "node-sass": "^4.14.1",
+        "node-sass": "^5.0.0",
         "reset-css": "^5.0.1",
-        "svelte-spa-router": "^2.2.0",
+        "svelte-spa-router": "^3.1.0",
         "svg-spritemap-webpack-plugin": "^3.6.2"
     },
     "devDependencies": {
-        "cross-env": "^5.2.0",
+        "cross-env": "^7.0.3",
+        "postcss": "^8.1",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.28.0",
-        "sass-loader": "7.*",
+        "sass-loader": "11.0.1",
         "svelte": "^3.29.4",
-        "svelte-loader": "^2.13.5",
-        "tailwindcss": "^1.9.6",
+        "svelte-loader": "^3.0.0",
+        "tailwindcss": "^2.0.4",
         "vue-template-compiler": "^2.6.12"
     }
 }
