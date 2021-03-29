@@ -1,6 +1,7 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     export let item;
+    export let params = {}
 
     const dispatch = createEventDispatcher();
 
@@ -45,7 +46,7 @@
 
     async function reserveItem() {
         reserving = true;
-        let url = '/api/dashboard/' + params.id;
+        let url = '/api/dashboard/' + item.id;
         const response = await fetch(url, {
             method : 'POST'
         });
