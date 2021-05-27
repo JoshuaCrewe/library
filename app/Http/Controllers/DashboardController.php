@@ -20,6 +20,7 @@ class DashboardController
     public function index(Response $response, Request $request)
     {
         $cookie = $request->get('sessionCookie');
+        $base = env('API_URL');
 
         $cookieJar = new CookieJar(true);
         $cookie = new Cookie('session', $cookie);
@@ -29,18 +30,53 @@ class DashboardController
         $crawler = $client->request('GET', env('API_URL') . '/account');
 
         $result = [];
+        $welcome = '';
         $logout = $crawler->filter('#logout')->text('');
         if ($logout == '') {
             App\Http\Middleware\Login::class;
             $logout = $crawler->filter('#logout')->text('');
-        }
+        };
 
-        $crawler->filter('.accountSummary')->each(function ($node) use(&$result) {
-            $result[] = trim($node->text());
+        $crawler->filter('.accountSummary')->each(function ($node) use(&$welcome) {
+            $welcome = trim($node->text());
+        });
+        $loans = []; // get each bit individual like
+        $crawler->filter('#loans tbody tr')->each(function ($node) use(&$loans, &$base) {
+            $item = [];
+
+            $data = explode( '/', $node->filter('img')->attr('src'));
+            $item['id'] = $data[1];
+
+            $item['image'] = $base . '/items/' . $data[1] . '/image-medium';
+            $item['title'] = trim($node->filter('.loanItemLink')->text(''));
+            $item['author'] = trim($node->filter('.author')->text(''));
+            $item['due'] = trim($node->filter('.accDue')->text(''));
+            $item['fine'] = trim($node->filter('.accFines')->text(''));
+            $item['renewCount'] = trim($node->filter('.accRenews')->text(''));
+            $loans[] = $item;
+        });
+
+        $client = new Client([], null, $cookieJar);
+        $crawler = $client->request('GET', env('API_URL') . '/account/reservations');
+        $reservations = []; // get each bit individual like
+        $crawler->filter('#reservations tbody tr')->each(function ($node) use(&$reservations, &$base) {
+            $item = [];
+
+            $data = explode( '/', $node->filter('img')->attr('src'));
+            $item['id'] = $data[1];
+            $item['image'] = $base . '/items/' . $data[1] . '/image-medium';
+
+            $item['title'] = trim($node->filter('a')->text(''));
+            $item['author'] = trim($node->filter('.author')->text(''));
+            $item['position'] = trim($node->filter('.accReservationPos')->text(''));
+            $item['reserveDate'] = trim($node->filter('td:nth-of-type(2)')->text(''));
+            $reservations[] = $item;
         });
 
         return response()->json([
-            'results'=> $result,
+            'welcome' => $welcome,
+            'loans' => array_values(array_filter($loans)),
+            'reservations' => array_values(array_filter($reservations))
         ]);
     }
 
