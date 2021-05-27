@@ -6,3 +6,5 @@ vendor
 Procfile
 .deploy-ignore
 
+
+storage

@@ -10,5 +10,10 @@
                 Falmouth Library Services
             </a>
         </li>
+        <li>
+            <a href="https://www.cornwall.gov.uk/libraries-museums-and-archives/libraries/using-the-library/book-request-form/" class="py-2 inline-block hover:text-gray-500 focus:text-gray-500">
+                Request a book
+            </a>
+        </li>
     </ul>
 </footer>
