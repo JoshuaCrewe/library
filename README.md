@@ -12,11 +12,11 @@ Ideally there would be an API available that could facilitate requests to a [Sve
 -   [x] Initialise Svelte with laravel mix
 -   [x] Implement a search bar to recreate search from main site
 -   [x] Add an endpoint to get one specific book information (including availability)
--   [ ] Handle pagination
+-   [x] Handle pagination
 
 ## Eventually
 
--   [ ] Reserve books using a Library ID
+-   [x] Reserve books using a Library ID
 
 ## Notes
 
