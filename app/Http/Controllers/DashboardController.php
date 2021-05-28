@@ -33,6 +33,9 @@ class DashboardController
         $welcome = '';
         $logout = $crawler->filter('#logout')->text('');
         if ($logout == '') {
+            if(isset($_COOKIE['session'])) {
+                unset($_COOKIE['session']);
+            }
             App\Http\Middleware\Login::class;
             $logout = $crawler->filter('#logout')->text('');
         };
@@ -124,7 +127,7 @@ class DashboardController
         ]);
     }
 
-    public function reserve($id)
+    public function reserve(Response $response, Request $request, $id)
     {
         if (!isset($_COOKIE['session'])) {
             $cookie = $request->get('sessionCookie');
@@ -152,6 +155,42 @@ class DashboardController
 
         return response()->json([
             'id' => $id,
+            'result' => true
+        ]);
+
+    }
+
+    public function cancel(Response $response, Request $request, $position)
+    {
+        if (!isset($_COOKIE['session'])) {
+            $cookie = $request->get('sessionCookie');
+        } else {
+            $cookie = $_COOKIE['session'];
+        }
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+
+        $url = env('API_URL') . '/account/reservations';
+
+        $crawler = $client->request('GET', $url , [
+            'allow_redirects' => true
+        ]);
+
+        $item = $crawler->filter('#reservations tbody tr:nth-of-type(' . $position . ')');
+        if (!$item) {
+            return response()->json([
+                'result' => false
+            ]);
+        }
+        $form = $item->selectButton('Cancel')->form();
+
+        $crawler = $client->submit($form);
+
+        return response()->json([
             'result' => true
         ]);
 

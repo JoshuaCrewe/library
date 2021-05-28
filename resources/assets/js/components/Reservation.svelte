@@ -1,5 +1,26 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
     export let item;
+    export let index;
+
+    const dispatch = createEventDispatcher();
+
+    let removed = false;
+    let removing = false;
+
+    async function cancelReservation() {
+        removing = true;
+        let url = '/api/dashboard/cancel/' + (index + 1);
+        const response = await fetch(url, {
+            method : 'POST'
+        });
+        const json = await response.json();
+        if (json.result) {
+            removing = false;
+            removed = true;
+            dispatch('remove');
+        }
+    }
 </script>
 <div class="flex hover:bg-gray-100 py-4 px-2 relative">
     <div class="w-1/3 pr-4">
@@ -20,8 +41,14 @@
         <p class="text-sm leading-5 sm:text-base">
             Reserved on : {item.reserveDate}
         </p>
-        <button class="button bg-red-100 border-red-500 mt-8">
-            Cancel
+        <button class="button bg-red-100 border-red-500 mt-8 relative z-10" on:click={cancelReservation}>
+            {#if removing}
+                Cancelling ...
+            {:else if removed}
+                Canceled!
+            {:else}
+                Cancel
+            {/if}
         </button>
     </div>
 </div>
