@@ -37,6 +37,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('/dashboard/cancel/{position}', 'DashboardController@cancel');
 
+    $router->post('/dashboard/renew/{id}', 'DashboardController@renew');
+
     $router->post('/dashboard[/{id}]', 'DashboardController@reserve');
 
     $router->get('/barcode/{barcode}', 'DashboardController@barcode');
