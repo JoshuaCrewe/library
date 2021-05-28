@@ -8,7 +8,7 @@
     import items from './stores';
 
     function routeLoaded(event) {
-        if (event.detail.location ==='/') {
+        if (event.detail.location === '/') {
             items.set({
                 currentSearch: "",
                 results: []

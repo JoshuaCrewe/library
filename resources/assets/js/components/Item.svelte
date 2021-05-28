@@ -1,6 +1,7 @@
 <script>
     export let item;
     import Actions from './Actions';
+    import {link} from 'svelte-spa-router'
 </script>
 <div class="flex hover:bg-gray-100 py-4 px-2 relative">
     <div class="w-1/3 pr-4">
@@ -13,7 +14,9 @@
             </h2>
         </a>
         <h3 class="text-base mb-2 leading-4 body-font md:text-lg md:mb-4">
-            {item.author}
+            <a class="z-10 relative" use:link href="/search/author:({item.author})">
+                {item.author}
+            </a>
         </h3>
         <p class="text-xs sm:text-sm bg-green-200 rounded px-1 inline-block mb-2">
             {item.format}
