@@ -37,24 +37,24 @@
                 </h1>
             </div>
         </section>
-        <div class="layout w-full md:w-3/4 m-auto max-w-3xl" id="list">
+        <section class="layout w-full md:w-3/4 m-auto max-w-3xl" id="list">
             <h2 class="text-4xl mb-8 text-center">Loans</h2>
-            <ul class="">
+            <ul class="flex flex-wrap">
                 {#each json.loans as loan}
-                    <li>
+                    <li class="w-full">
                         <Loan {loan} />
                     </li>
                 {/each}
             </ul>
             <h2 class="text-4xl mb-8 mt-8 text-center">Reservations</h2>
-            <ul class="">
-                {#each json.reservations as item}
-                    <li>
-                        <Reservation {item} />
+            <ul class="flex flex-wrap">
+                {#each json.reservations as item, index}
+                    <li class="w-full" class:hidden={item.hidden}>
+                        <Reservation {item} {index}  on:remove={() => item.hidden = true} />
                     </li>
                 {/each}
             </ul>
-        </div>
+        </section>
     {:else}
         <seciton class="layout">
             <div class="w-full md:w-3/4 m-auto max-w-3xl pt-20" id="list">

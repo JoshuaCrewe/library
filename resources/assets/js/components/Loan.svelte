@@ -21,7 +21,7 @@
             Due back : {loan.due}
         </p>
 
-        <button class="button bg-green-100 border-green-500 mt-8">
+        <button class="button bg-green-100 border-green-500 mt-8 relative z-10">
             Renew
         </button>
     </div>
