@@ -61,63 +61,69 @@
                 <li class="bg-gray-200 rounded px-2 mr-2 text-xs h-6 w-12"> </li>
                 <li class="bg-gray-200 rounded px-2 mr-2 text-xs h-6 w-8"> </li>
             </ul>
-        {/if}
-        <div class="mb-4">
-            <img class="m-auto" src="{item.image}" alt="{item.title}" height="304" width="200">
-        </div>
+        {:else}
+            <div class="mb-4">
+                <img class="m-auto" src="{item.image}" alt="{item.title}" height="304" width="200">
+            </div>
 
-        <header class="center">
-            {#if item.title}
-                <h1 class="text-4xl">
-                    {item.title}
-                </h1>
-            {/if}
-            {#if item.author}
-                <h3 class="text-2xl body-font mb-4">
-                    {item.author}
-                </h3>
-            {/if}
-        </header>
+            <header class="center">
+                {#if item.title}
+                    <h1 class="text-4xl">
+                        {item.title}
+                    </h1>
+                {/if}
+                {#if item.author}
+                    <h3 class="text-2xl body-font mb-4">
+                        {item.author}
+                    </h3>
+                {/if}
+            </header>
 
-        <div class="">
-            
             <div class="">
-                {#if item.genres}
-                    <ul class="flex justify-center items-center mb-4">
-                        {#each item.genres as genre, i}
-                            <li class="bg-blue-200 rounded px-2 mr-2 text-xs">
-                                {genre}
-                            </li>
-                        {/each}
-                    </ul>
-                {/if}
-            </div>
+                
+                <div class="">
+                    {#if item.genres}
+                        <ul class="flex justify-center items-center mb-4">
+                            {#each item.genres as genre, i}
+                                <li class="bg-blue-200 rounded px-2 mr-2 text-xs">
+                                    {genre}
+                                </li>
+                            {/each}
+                        </ul>
+                    {/if}
+                </div>
 
-            <div class="mb-2">
-                {#if item.summary}
-                    <p class="item-summary">
-                        {item.summary}
-                    </p>
-                {/if}
+                <div class="mb-2">
+                    {#if item.summary}
+                        <p class="item-summary">
+                            {item.summary}
+                        </p>
+                    {/if}
 
-                {#if item.ISBN}
                     <h3>Details</h3>
-                    <p>
-                        ISBN : {item.ISBN}
-                    </p>
-                {/if}
+                    {#if item.ISBN}
+                        <p>
+                            ISBN : {item.ISBN}
+                        </p>
+                    {/if}
+                    {#if item.pysical}
+                        <p>
+                            {item.pysical}
+                        </p>
+                    {/if}
+                </div>
             </div>
-        </div>
 
-        {#if item.status}
-            <ul class="markup">
-                {@html item.status}
-            </ul>
+            {#if item.status}
+                <ul class="markup">
+                    {@html item.status}
+                </ul>
+            {/if}
+
+            <div class="mt-4 h-8 relative">
+                <Actions {item} />
+            </div>
         {/if}
-
-        <div class="mt-4 h-8 relative">
-            <Actions {item} />
-        </div>
 
     </div>
 
