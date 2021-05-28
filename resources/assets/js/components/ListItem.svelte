@@ -1,10 +1,12 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     export let item;
     let removed = false;
     let canRemove = true;
     import Actions from './Actions';
 </script>
-<div class="relative flex hover:bg-gray-100 py-4 px-2 flex-col text-center" class:hidden={removed}>
+<div class="relative flex hover:bg-gray-100 py-4 px-2 flex-col text-center">
     <div class="mb-2">
         <img src="{item.image}" alt="{item.title}" class="mb-0 w-full">
     </div>
@@ -19,5 +21,5 @@
         </h3>
     </div>
 
-    <Actions {item} {canRemove} on:remove={() => removed = true} />
+    <Actions {item} {canRemove} on:remove={ () => dispatch('remove')} />
 </div>

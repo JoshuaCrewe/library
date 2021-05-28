@@ -35,8 +35,8 @@
         <ul class="flex flex-wrap">
             {#if ! loading}
                 {#each json.results.items as item}
-                    <li class="w-1/2 lg:w-1/3">
-                        <ListItem {item} />
+                    <li class="w-1/2 lg:w-1/3" class:hidden={item.hidden}>
+                        <ListItem {item} on:remove={() => item.hidden = true} />
                     </li>
                 {/each}
             {/if}
