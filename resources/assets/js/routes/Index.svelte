@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
 
-    import {link, push, querystring} from 'svelte-spa-router'
+    import {link, push, querystring, location} from 'svelte-spa-router'
 
     import Form from './../components/Form.svelte'
     import Item from './../components/Item.svelte'
@@ -9,7 +9,6 @@
 
     import {items, page} from './../stores';
 
-    let results = $items.results;
     let loading = false;
     let atStart;
     let atEnd;
@@ -47,11 +46,13 @@
             atStart = $page <= 1;
             atEnd = $items.limit == $page;
         }
-        push(`/search/${$items.currentSearch}?page=${$page}`)
+        if ($location !== '/') {
+            push(`/search/${$items.currentSearch}?page=${$page}`)
+        }
     }
 </script>
 <div class="min-h-screen">
-    
+
     <div class="" class:no-results={$items.results.length === 0}>
         <Form {params} on:loading={(event) => {loading = event.detail; handlePagination();} }/>
 
