@@ -31,6 +31,7 @@ class Item
         $book['author'] = trim($crawler->filter('.description > .author > span[itemprop="creator"] > span[itemprop="name"]')->text(''));
         $book['summary'] = trim($crawler->filter('.summarydetail > p[itemprop="description"]')->text(''));
         $book['ISBN'] = $crawler->filter('.item')->filter('span[itemprop="isbn"]')->text('');
+        $book['pysical'] = str_replace(':', ' :', trim($crawler->filter('.item')->filter('.displayasphysicaldes')->text('')));
         $book['genres'] = $crawler->filter('.item')->filter('span[itemprop="genre"]')->extract(['_text']);
 
         $book['status'] = $crawler->filter('.item #availability > .options')->html('<h3>Not Available</h3>');
