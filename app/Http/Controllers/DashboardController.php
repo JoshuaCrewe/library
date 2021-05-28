@@ -196,4 +196,41 @@ class DashboardController
 
     }
 
+    public function renew(Response $response, Request $request, $id)
+    {
+        if (!isset($_COOKIE['session'])) {
+            $cookie = $request->get('sessionCookie');
+        } else {
+            $cookie = $_COOKIE['session'];
+        }
+
+        $cookieJar = new CookieJar(true);
+        $cookie = new Cookie('session', $cookie);
+        $cookieJar->set($cookie);
+
+        $client = new Client([], null, $cookieJar);
+
+        $url = env('API_URL') . '/account';
+
+        $crawler = $client->request('GET', $url , [
+            'allow_redirects' => true
+        ]);
+
+        $item = $crawler->filter('#loans tbody tr a[href$="' . $id . '"]')->parents()->parents();
+        if (!$item) {
+            return response()->json([
+                'result' => false
+            ]);
+        }
+        $form = $item->selectButton('Renew')->form();
+
+        $crawler = $client->submit($form);
+
+        return response()->json([
+            'result' => true,
+            'form' => $form
+        ]);
+
+    }
+
 }

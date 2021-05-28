@@ -1,5 +1,19 @@
 <script>
     export let loan;
+    let renewed = false;
+    let renewing = false;
+    async function renew() {
+        renewing = true;
+        let url = '/api/dashboard/renew/' + loan.id;
+        const response = await fetch(url, {
+            method : 'POST'
+        });
+        const json = await response.json();
+        if (json.result) {
+            renewing = false;
+            renewed = true;
+        }
+    }
 </script>
 <div class="flex hover:bg-gray-100 py-4 px-2 relative">
     <div class="w-1/3 pr-4">
@@ -21,8 +35,14 @@
             Due back : {loan.due}
         </p>
 
-        <button class="button bg-green-100 border-green-500 mt-8 relative z-10">
-            Renew
+        <button class="button bg-green-100 border-green-500 mt-8 relative z-10" on:click={renew}>
+            {#if renewing}
+                Renewing ...
+            {:else if renewed}
+                Renewed!
+            {:else}
+                Renew
+            {/if}
         </button>
     </div>
 </div>
