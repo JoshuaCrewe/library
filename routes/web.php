@@ -35,7 +35,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     */
     $router->get('/dashboard', 'DashboardController@index');
 
-    $router->post('/dashboard/cancel/{position}', 'DashboardController@cancel');
+    $router->post('/dashboard/cancel/{id}', 'DashboardController@cancel');
 
     $router->post('/dashboard/renew/{id}', 'DashboardController@renew');
 
