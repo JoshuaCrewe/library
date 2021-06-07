@@ -160,7 +160,7 @@ class DashboardController
 
     }
 
-    public function cancel(Response $response, Request $request, $position)
+    public function cancel(Response $response, Request $request, $id)
     {
         if (!isset($_COOKIE['session'])) {
             $cookie = $request->get('sessionCookie');
@@ -180,18 +180,18 @@ class DashboardController
             'allow_redirects' => true
         ]);
 
-        $item = $crawler->filter('#reservations tbody tr:nth-of-type(' . $position . ')');
+        $item = $crawler->filter('#reservations tbody tr a[href$=' . $id . ']');
         if (!$item) {
             return response()->json([
                 'result' => false
             ]);
         }
-        $form = $item->selectButton('Cancel')->form();
+        $form = $item->parents()->parents()->selectButton('Cancel')->form();
 
         $crawler = $client->submit($form);
 
         return response()->json([
-            'result' => true
+            'result' => true,
         ]);
 
     }

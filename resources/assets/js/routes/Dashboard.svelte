@@ -48,9 +48,9 @@
             </ul>
             <h2 class="text-4xl mb-8 mt-8 text-center">Reservations</h2>
             <ul class="flex flex-wrap">
-                {#each json.reservations as item, index}
+                {#each json.reservations as item}
                     <li class="w-full" class:hidden={item.hidden}>
-                        <Reservation {item} {index}  on:remove={() => item.hidden = true} />
+                        <Reservation {item} on:remove={() => item.hidden = true} />
                     </li>
                 {/each}
             </ul>

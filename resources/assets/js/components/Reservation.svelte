@@ -1,7 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     export let item;
-    export let index;
 
     const dispatch = createEventDispatcher();
 
@@ -10,7 +9,7 @@
 
     async function cancelReservation() {
         removing = true;
-        let url = '/api/dashboard/cancel/' + (index + 1);
+        let url = '/api/dashboard/cancel/' + (item.id);
         const response = await fetch(url, {
             method : 'POST'
         });
