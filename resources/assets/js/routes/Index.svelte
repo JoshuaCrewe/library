@@ -9,7 +9,7 @@
 
     import {items, page} from './../stores';
 
-    let loading = false;
+    let loading = true;
     let atStart;
     let atEnd;
     let qs = new URLSearchParams($querystring);
