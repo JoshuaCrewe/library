@@ -91,14 +91,6 @@ class DashboardController
         // Use the barcode to log in.
         // If successful then save the encrypted version to the browser
         // Redirect user to the dashboard ?
-        $cookie = setcookie('barcode', $secret, [
-            'expires' => time()+60*60*24*60,
-            'path' => '/',
-            'domain' => env('APP_DOMAIN'),
-            'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
-            'httponly' => true,
-            'samesite' => 'lax'
-        ]);
 
         $client = new Client();
         $crawler = $client->request('GET', env('API_URL') . '/login');
@@ -108,15 +100,25 @@ class DashboardController
         // Fill in the fields and send it off
         $crawler = $client->submit($form, array('barcode' => $barcode, 'institutionId' => ''));
 
-        $logout = $crawler->filter('#logout')->text('');
+        $logout = $crawler->filter('#logout_button')->attr('value');
+        // dd($logout);
 
-        if ($logout == '') {
+        if ($logout !== 'Logout') {
             unset($_COOKIE['barcode']); 
             setcookie('barcode', null, -1, '/'); 
             return response()->json([
                 'success' => false
             ]);
         }
+
+        $cookie = setcookie('barcode', $secret, [
+            'expires' => time()+60*60*24*60,
+            'path' => '/',
+            'domain' => env('APP_DOMAIN'),
+            'secure' => $_SERVER['REQUEST_SCHEME'] === 'https',
+            'httponly' => true,
+            'samesite' => 'lax'
+        ]);
 
         return response()->json([
             'success' => true,
