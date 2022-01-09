@@ -10,15 +10,15 @@
         loading = true;
 
         let url = window.location.origin + '/api/dashboard';
-        console.log(url);
+        /* console.log(url); */
         const response = await fetch(url);
         json = await response.json();
 
         if (json.welcome == '') {
-            /* push(`/login`) */
+            push(`/login`)
         }
 
-        console.log(json.loans);
+        /* console.log(json.loans); */
 
         loading = false;
     }
