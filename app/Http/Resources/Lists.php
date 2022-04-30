@@ -28,6 +28,10 @@ class Lists
             $cookie = $_COOKIE['session'];
         }
 
+        if (!$cookie) {
+            $cookie = '';
+        }
+
         $cookieJar = new CookieJar(true);
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
