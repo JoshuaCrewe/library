@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Library</title>
         <link rel="stylesheet" href="dist/css/app.css" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
     </head>
     <body>
         <div hidden>

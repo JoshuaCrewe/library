@@ -81,7 +81,7 @@ class Lists
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
 
         $result = [];
 
@@ -112,7 +112,7 @@ class Lists
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
 
         $result = [];
 
@@ -131,5 +131,4 @@ class Lists
             'result' => true
         ]);
     }
-
 }

@@ -5,8 +5,12 @@
     async function renew() {
         renewing = true;
         let url = '/api/dashboard/renew/' + loan.id;
+        let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const response = await fetch(url, {
-            method : 'POST'
+            method : 'POST',
+            headers : {
+                'X-CSRF-TOKEN': csrf
+            }
         });
         const json = await response.json();
         if (json.result) {
