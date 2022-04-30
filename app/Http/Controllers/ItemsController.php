@@ -5,7 +5,7 @@ use App\Http\Resources\Item;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-
+ 
 class ItemsController
 {
     public function index(Response $response, Request $request, $terms = null)

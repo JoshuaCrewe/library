@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use Goutte\Client;
 use Symfony\Component\BrowserKit\CookieJar;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpClient\HttpClient;
 
 use App\Http\Middleware;
 
@@ -22,12 +23,17 @@ class DashboardController
         $cookie = $request->get('sessionCookie');
         $base = env('API_URL');
 
+        if (!$cookie) {
+            $cookie = '';
+        }
+
         $cookieJar = new CookieJar(true);
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
-        $crawler = $client->request('GET', env('API_URL') . '/account');
+        /* dd($cookieJar); */
+        $client = new Client(HttpClient::create(), null, $cookieJar);
+        $crawler = $client->request('GET', $base . '/account');
 
         $result = [];
         $welcome = '';
@@ -59,7 +65,7 @@ class DashboardController
             $loans[] = $item;
         });
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
         $crawler = $client->request('GET', env('API_URL') . '/account/reservations');
         $reservations = []; // get each bit individual like
         $crawler->filter('#reservations tbody tr')->each(function ($node) use(&$reservations, &$base) {
@@ -141,7 +147,7 @@ class DashboardController
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
 
         $result = [];
 
@@ -174,7 +180,7 @@ class DashboardController
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
 
         $url = env('API_URL') . '/account/reservations';
 
@@ -210,7 +216,7 @@ class DashboardController
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
 
         $url = env('API_URL') . '/account';
 

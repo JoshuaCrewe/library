@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Goutte\Client;
 use Symfony\Component\BrowserKit\CookieJar;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpClient\HttpClient;
 
 class Lists
 {
@@ -31,7 +32,7 @@ class Lists
         $cookie = new Cookie('session', $cookie);
         $cookieJar->set($cookie);
 
-        $client = new Client([], null, $cookieJar);
+        $client = new Client(HttpClient::create(), null, $cookieJar);
 
         $result = [];
 

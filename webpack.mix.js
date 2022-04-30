@@ -6,8 +6,8 @@ require("laravel-mix-purgecss");
 mix.options({
     notifications: {
         onSuccess: false,
-        onFailure: true
-    }
+        onFailure: true,
+    },
 });
 
 mix.js("resources/assets/js/app.js", "public/dist/js").svelte();
@@ -18,8 +18,8 @@ mix.sass("resources/assets/scss/app.scss", "public/dist/css")
     .purgeCss({
         content: [
             "./resources/assets/js/**/*.svelte",
-            "./resources/views/**/*.blade.php"
-        ]
+            "./resources/views/**/*.blade.php",
+        ],
     });
 
 // Create a sprite sheet based on a folder of SVGs
@@ -30,12 +30,12 @@ mix.webpackConfig({
             output: {
                 filename: "partials/sprite.php",
                 chunk: {
-                    name: "dist/icons/spritemap"
-                }
+                    name: "dist/icons/spritemap",
+                },
             },
             sprite: {
-                prefix: "icon--"
-            }
-        })
-    ]
+                prefix: "icon--",
+            },
+        }),
+    ],
 });
