@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\ListsController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,40 +14,37 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->group(['prefix' => 'api'], function () use ($router) {
-    /*
-    * Routes for Items
-    */
-    $router->get('/items', 'ItemsController@index');
 
-    $router->get('/items/{id}', 'ItemsController@show');
+Route::prefix('api')->group(function () {
+    Route::get('/items', [ItemsController::class, 'index' ]);
+    Route::get('/items/{id}', [ItemsController::class, 'show']);
 
     /*
     * Routes for Search
     */
-    $router->get('/search/{terms}', 'ItemsController@index');
+    Route::get('/search/{terms}', [ItemsController::class, 'index']);
 
     /*
     * Routes for lists
     */
-    $router->get('/lists[/{name}]', 'ListsController@show');
+    Route::get('/lists/{name?}', [ListsController::class, 'show']);
 
-    $router->post('/list/{id}[/{action}]', 'ListsController@update');
+    Route::post('/list/{id}/{action?}', [ListsController::class, 'update']);
 
     /*
     * Routes for the Dashbaord
     */
-    $router->get('/dashboard', 'DashboardController@index');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
-    $router->post('/dashboard/cancel/{id}', 'DashboardController@cancel');
+    Route::post('/dashboard/cancel/{id}', [DashboardController::class, 'cancel']);
 
-    $router->post('/dashboard/renew/{id}', 'DashboardController@renew');
+    Route::post('/dashboard/renew/{id}', [DashboardController::class, 'renew']);
 
-    $router->post('/dashboard[/{id}]', 'DashboardController@reserve');
+    Route::post('/dashboard/{id?}', [DashboardController::class, 'reserve']);
 
-    $router->get('/barcode/{barcode}', 'DashboardController@barcode');
+    Route::get('/barcode/{barcode}', [DashboardController::class, 'barcode']);
 });
 
-$router->get('/{route:.*}/', function ()  {
+Route::get('/', function () {
     return view('app');
 });

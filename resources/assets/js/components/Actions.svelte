@@ -20,8 +20,13 @@
     async function removeFromList() {
         removing = true;
         let url = '/api/list/' + item.id + '/remove';
+
+        let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const response = await fetch(url, {
-            method : 'POST'
+            method : 'POST',
+            headers : {
+                'X-CSRF-TOKEN': csrf
+            }
         });
         const json = await response.json();
         if (json.result) {
@@ -33,8 +38,12 @@
     async function addToList() {
         saving = true;
         let url = '/api/list/' + item.id + '/add';
+        let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const response = await fetch(url, {
-            method : 'POST'
+            method : 'POST',
+            headers : {
+                'X-CSRF-TOKEN': csrf
+            }
         });
         const json = await response.json();
         if (json.result) {
@@ -46,8 +55,12 @@
     async function reserveItem() {
         reserving = true;
         let url = '/api/dashboard/' + item.id;
+        let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const response = await fetch(url, {
-            method : 'POST'
+            method : 'POST',
+            headers : {
+                'X-CSRF-TOKEN': csrf
+            }
         });
         const json = await response.json();
         if (json.result) {

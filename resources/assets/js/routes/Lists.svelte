@@ -9,6 +9,7 @@
     export let params = {}
 
     let loading = true;
+    let empty = null;
     let json = {};
     let data = {};
     async function getItems() {
@@ -17,7 +18,14 @@
         let url = window.location.origin + '/api/lists';
         const response = await fetch(url);
         json = await response.json();
+
         data = json.results;
+
+        if (data.items.length == 0) {
+            empty = true;
+        } else {
+            empty = false;
+        }
 
         loading = false;
     }
@@ -32,6 +40,12 @@
         <Form {params} />
     </div>
     <section class="layout w-full md:w-3/4 m-auto max-w-3xl" id="list">
+
+        {#if empty }
+            <p class="text-center">
+                It looks like there are no items in your list. Are you sure you are <a class="underline" href="#/login/" >logged in</a> ?
+            </p>
+        {/if}
         <ul class="flex flex-wrap">
             {#if ! loading}
                 {#each json.results.items as item}

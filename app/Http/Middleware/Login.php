@@ -56,7 +56,7 @@ class Login
         $values = $cookieJar->allValues(env('API_URL') . '/');
 
         // By default there is no session cookie
-        $cookie = null;
+        $cookie = '';
 
         // If we do get one from the cookie jar
         if (isset($values['session'])) {
