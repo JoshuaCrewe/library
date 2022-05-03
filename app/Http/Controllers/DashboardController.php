@@ -194,7 +194,7 @@ class DashboardController
                 'result' => false
             ]);
         }
-        $form = $item->parents()->parents()->selectButton('Cancel')->form();
+        $form = $item->ancestors()->ancestors()->selectButton('Cancel')->form();
 
         $crawler = $client->submit($form);
 
@@ -224,7 +224,7 @@ class DashboardController
             'allow_redirects' => true
         ]);
 
-        $item = $crawler->filter('#loans tbody tr a[href$="' . $id . '"]')->parents()->parents();
+        $item = $crawler->filter('#loans tbody tr a[href$="' . $id . '"]')->ancestors()->ancestors();
         if (!$item) {
             return response()->json([
                 'result' => false
