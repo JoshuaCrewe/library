@@ -1,35 +1,3 @@
 # Library - A Laravel Project
 
-The existing Library catalogue is a nice resource but is lacking with its interface. There are some annoying setting enabled which make it hard to navigate using a phone. This project is a learning exercise in web scraping, back end frameworks and front end SPAs.
-
-## Approach
-
-Ideally there would be an API available that could facilitate requests to a [Svelte](https://svelte.dev/) instance on the front end. This being absent we are using the existing website to create an API based on [laravel](https://laravel.com).
-
-## TODO
-
--   [x] Create at least one end point to get data from
--   [x] Initialise Svelte with laravel mix
--   [x] Implement a search bar to recreate search from main site
--   [x] Add an endpoint to get one specific book information (including availability)
--   [x] Handle pagination
-
-## Eventually
-
--   [x] Reserve books using a Library ID
-
-## Notes
-
-We want to handle the login so that we can see things ahout our account like lists.
-
--   Save barcode to encrypted localstorage
--   Add a login form to the dashboard URL on front end
--   Handle login using the API to fetch data
--   Perform actions like saving to a list
--   If possible login on initial load (help power buttons in search result)
-
-**Pages**
-
--   Dashboard with a series of links (fetch each tab and present in one page ?)
--   History page
--   List of saved items
+This project has moved to https://codeberg.org/JoshuaCrewe/library.
